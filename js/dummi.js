@@ -58,6 +58,14 @@ String.prototype.camelCase = function(value) {
 	}
 	return camelcasedWord;
 }
+<<<<<<< Updated upstream
+=======
+
+// BLOCK SLIDE
+$(".toggle").click(function(){
+	$(this).next(".options .options--frame").slideToggle();
+})
+>>>>>>> Stashed changes
 	
 // UPDATE OUTPUT
 function updateOutput(){
