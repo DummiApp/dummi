@@ -61,6 +61,7 @@ body{
 	font-family: 'Open Sans', sans-serif;
 	color: #333;
 	background: #f4f4f4;
+	overflow-y: scroll;
 }
 
 
