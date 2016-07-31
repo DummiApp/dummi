@@ -38,6 +38,9 @@ $.getJSON("pathTo/dummi.json", function(json) {
 
 Features and File-Types Planned for the Future
 -
+#### More and More Value Types
+We want to continue adding more and more types of values you can add to your dummi data allowing for hopefully all of your needs being fulfilled.
+
 #### MySQL Support (or just SQL in general)
 We are thinking about adding the ability to generate all the SQL needed to create a database with a table and fill it with dummi data all in one go. This could be useful for people who use MySQL in development.
 
@@ -51,7 +54,7 @@ Getting an account will allow you to save your generated dummi data and have it 
 
 Contributing
 -
-Currently we are not sure how we are fully going to handle people contributing to the project as we may one day have to make it private as we might develop into a business. If you are really interessted in contributing and may even want to be part of the team please [write to us on Twitter](https://twitter.com/dummiapp), or send a mail to either aaron@dummi.io or marc@dummi.io and we will talk to you and see where that can lead. Otherwise, if you have an undeniably good pull-request we are probably going to accept it and give you credit for it.
+Currently we are not sure how we are fully going to handle people contributing to the project as we may one day have to make it private as we might develop into a business. If you are really interested in contributing and may even want to be part of the team please [write to us on Twitter](https://twitter.com/dummiapp), or send a mail to either aaron@dummi.io or marc@dummi.io and we will talk to you and see where that can lead. Otherwise, if you have an undeniably good pull-request we are probably going to accept it and give you credit for it.
 
 ---
 
