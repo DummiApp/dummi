@@ -324,7 +324,11 @@ Block
 	-webkit-transition: all 0.15s ease-out 0s;
 	-moz-transition: all 0.15s ease-out 0s;
 	transition: all 0.15s ease-out 0s; 	
+<<<<<<< Updated upstream
 	max-height: 0px;
+=======
+	max-height: 0;
+>>>>>>> Stashed changes
 }
 
 .block .toggle-switch:checked ~ .options{
