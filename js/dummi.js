@@ -58,7 +58,7 @@ String.prototype.camelCase = function(value) {
 	}
 	return camelcasedWord;
 }
-
+	
 // UPDATE OUTPUT
 function updateOutput(){
 
