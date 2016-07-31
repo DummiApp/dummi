@@ -324,20 +324,19 @@ Block
 	-webkit-transition: all 0.15s ease-out 0s;
 	-moz-transition: all 0.15s ease-out 0s;
 	transition: all 0.15s ease-out 0s; 	
-	height: auto;
+	max-height: 0px;
 }
 
-/*.block .toggle-switch:checked ~ .options{
+.block .toggle-switch:checked ~ .options{
 	display: block;
-	height: 200px;
-}*/
+	max-height: 200px;
+}
 
 .block .options--frame{
 	margin-top: 20px;
 	border-left: solid 2px #eee;
 	padding-left: 15px;
 }
-
 
 .block .toggle{
 	float: right;	

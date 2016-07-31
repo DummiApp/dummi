@@ -58,19 +58,7 @@ String.prototype.camelCase = function(value) {
 	}
 	return camelcasedWord;
 }
-
-// BLOCK SLIDE
-function openOptions(check){
-	if(document.getElementById(check).checked==true){
-		$(".options--frame").slideUp();
-		document.getElementById(check).checked=false;
-	} else if(document.getElementById(check).checked==false){
-		$(".options--frame").slideDown();
-		document.getElementById(check).checked=true;
-	} 
-}
 	
-
 // UPDATE OUTPUT
 function updateOutput(){
 
