@@ -1,9 +1,9 @@
-// feedme.js - All main javascript & jQuery happens here
+// dummi.js - All main javascript & jQuery happens here
 // CODE WRITTEN BY MARC MUELLER (@seven11nash)
 
 // INITIAL VARIABLES
 var outputType = "JSON";
-var feedName = "feedMe";
+var feedName = "dummi";
 var itemArray = [];
 var itemDetailArray = [];
 var valueArray = ["0", "1"];
@@ -22,9 +22,24 @@ function generateUniqueURL(){
 	// document.getElementById("path--field").value = uniqueURL;
 }
 
-// CAMELCASING FEEDNAME
+// CAPITALIZE DUMMI
 String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+// CAMELCASE DUMMI
+String.prototype.camelCase = function(value) {
+    var words = value.split(' ');
+	var numberOfWords = words.length;
+	var camelcasedWord = "";
+	for(var i = 0;i < numberOfWords;i+=1){
+		if(i == 0){
+			camelcasedWord = camelcasedWord + words[i].toLowerCase();
+		}else{
+			camelcasedWord = camelcasedWord + words[i].capitalize();
+		}	
+	}
+	return camelcasedWord;
 }
 
 // UPDATE OUTPUT
@@ -34,20 +49,19 @@ function updateOutput(){
 	var type = selectedValueField.options[selectedValueField.selectedIndex].value;
 
 	document.getElementById("feedTypeTitle").innerHTML = type;
+	document.getElementById("valueTypeLabel").innerHTML = "value type";
 
 	if(type == "CSV"){
 		outputType = "CSV";
 		document.getElementById("feedNameLabel").innerHTML = "File Name";
 		$("#feedName").attr("placeholder", "Name your CSV File");
 		document.getElementById("itemNumberLabel").innerHTML = "# of rows";
-		document.getElementById("valueTypeLabel").innerHTML = "value type";
 		updateFeed();
 	}else{
 		outputType = "JSON";
 		document.getElementById("feedNameLabel").innerHTML = "Feed Name";
 		$("#feedName").attr("placeholder", "Name your Feed");
 		document.getElementById("itemNumberLabel").innerHTML = "# of items";
-		document.getElementById("valueTypeLabel").innerHTML = "value type";
 
 		updateFeed();
 	}
@@ -62,21 +76,12 @@ $('#feedName').focusin('input',function(e){
 			var value = $("#feedName").val();
 			value = value.replace(/[^A-Za-z\s!?]/g,'');
 			value = value.toLowerCase();
-			var words = value.split(' ');
-			var numberOfWords = words.length;
-			value = "";
-			for(var i = 0;i < numberOfWords;i+=1){
-				if(i == 0){
-					value = value + words[i].toLowerCase();
-				}else{
-					value = value + words[i].capitalize();
-				}	
-			}
+			value = value.camelCase(value);
 
 		    if(value != ""){
 		  		feedName = value;
 		    }else{
-		  		feedName = "feedMe";
+		  		feedName = "dummi";
 		    }
 
 		  	updateFeed();
@@ -89,7 +94,7 @@ $('#feedName').focusout('input',function(e){
 
 	var value = $("#feedName").val();
 	if(value == ""){
-		feedName = "feedMe";
+		feedName = "dummi";
 		updateFeed();
 	}
 
@@ -210,7 +215,7 @@ $('#itemNumber').focusout('input',function(e){
 
 // RESET FEED
 function newFeed(){
-	feedName = "feedMe";
+	feedName = "dummi";
 	itemArray = ["phone"];
 	itemDetailArray = ["us"];
 	valueArray = ["0", "1"];
@@ -231,7 +236,7 @@ function newFeed(){
 function toggleHelp(){
 	if(helpToggle == false){
 		helpToggle = true;
-		var helpText = '<b>Welcome to Feed.Me help</b><br>Note: To go back to your feed press the help button again<br><br><b>What is Feed.Me for?</b><br>Feed.Me is a tool for developers and designers, you can simply and easily generate spoof JSON data, which is hosted on Feed.Me or you can download as a json file. This helps prototyping and testing if your code would work with real JSON data.<br><br><b>How do I pull data from the downloaded json? (Js)</b><br>$.getJSON("path/to/feedMe.json", function(json) {<br>&nbsp;&nbsp;console.log("JSON Data: " + json.feedMe[1].fullName);<br>});';
+		var helpText = '<b>Welcome to Feed.Me help</b><br>Note: To go back to your feed press the help button again<br><br><b>What is Feed.Me for?</b><br>Feed.Me is a tool for developers and designers, you can simply and easily generate spoof JSON data, which is hosted on Feed.Me or you can download as a json file. This helps prototyping and testing if your code would work with real JSON data.<br><br><b>How do I pull data from the downloaded json? (Js)</b><br>$.getJSON("path/to/dummi.json", function(json) {<br>&nbsp;&nbsp;console.log("JSON Data: " + json.dummi[1].fullName);<br>});';
 		document.getElementById("codeField").innerHTML = helpText;
 		document.getElementById("feedTypeTitle").innerHTML = "Feed.Me Help";
 		$("#newFeed").css("display", "none");
@@ -247,7 +252,7 @@ function toggleHelp(){
 
 // FUNCTION FOR THE COPY BUTTON
 function copyLink(){
-	var copyUrl = $("#path--field").val();
+	var link = $("#path--field").val();
 	// SELECT TEXT
     document.getElementById("path--field").focus();
     document.getElementById("path--field").select();
@@ -257,7 +262,7 @@ function copyLink(){
     document.getElementById("copyButton").focus();
     $("#path--field").val("COPIED");
     setTimeout(function(){
-    	$("#path--field").val(copyUrl);
+    	$("#path--field").val(link);
     }, 700);
 }
 
@@ -298,7 +303,7 @@ function updateFeed(){
 			}
 
 			var firstName = fullName;
-	    	firstName = firstName.substring(0, firstName.indexOf(' '));
+	    	firstName = firstName.split(' ')[0];
 	    	firstName = firstName.toLowerCase();
 	    	firstName = firstName.charAt(0);
 	    	var lastName = fullName;
@@ -405,7 +410,7 @@ function updateFeed(){
 		}
 
 		if(outputType == "CSV"){
-			// DOWNLOAD XML
+			// DOWNLOAD CSV
 			finalCSV = "data:text/csv;charset=utf-8," + finalCSV;
 			finalCSV = finalCSV.split('&nbsp;').join('');
 			finalCSV = finalCSV.split('<span>').join('');
