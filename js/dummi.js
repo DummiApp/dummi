@@ -229,9 +229,9 @@ $('#itemNumber').focusin('input',function(e){
 			value = value.replace(/[^0-9\s!?]/g,'');
 			$("#itemNumber").val(value);
 
-			if(value > 1001){
-				value = 1001;
-				$("#itemNumber").val("1001");
+			if(value > 500){
+				value = 500;
+				$("#itemNumber").val("500");
 			}
 
 		    if(value != ""){
