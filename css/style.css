@@ -72,7 +72,7 @@ Buttons
 	padding: 13px;
 	width: 100%;
 	margin: 10px 0;
-	background: #2C72C2;
+	background: #FC0473;
 	border: none;
 	color: white;
 	text-transform: uppercase;
@@ -175,7 +175,7 @@ Side Bar
 	font-family: 'Oleo Script', cursive;
 	font-size: 80px;
 	text-transform: lowercase;
-	color: #2C72C2;
+	color: #FC0473;
 }
 
 .logo .sans{
@@ -201,7 +201,7 @@ Side Bar
 	border: none;
 	border-bottom: solid 2px #ccc;
 	font-weight: 300;
-	color: #2C72C2;
+	color: #FC0473;
 	line-height: 27px;
 	margin: 0;
 	display: block;
@@ -210,7 +210,7 @@ Side Bar
 
 .side-bar input[type="text"]:focus{
 	outline: none;
-	border-color: #4b8cd6;
+	border-color: #FC0473;
 }
 
 .side-bar input[type="text"].number{
@@ -395,7 +395,7 @@ main .utility-bar nav a{
 	font-size: 12px;
 	text-transform: uppercase;
 	text-decoration: none;
-	color: #6099db;
+	color: #FC0473;
 	margin-left: 10px;
 }
 
@@ -415,13 +415,13 @@ main .slab code{
 }
 
 main .slab span{
-	color: #6099db;
+	color: #FF77AA;
 }
 
 main .slab b{
 	font-size: 16px;
 	font-family: courier;
-	color: #6099db;
+	color: #FF77AA;
 }
 
 main .slab #codeField{
@@ -473,7 +473,7 @@ main .path a{
 	vertical-align: middle;
 	top: 20px;
 	text-decoration: none;
-	color: #2C72C2;
+	color: #FC0473;
 	text-transform: uppercase;
 }
 

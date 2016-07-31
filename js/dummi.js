@@ -4,11 +4,28 @@
 // INITIAL VARIABLES
 var outputType = "JSON";
 var feedName = "dummi";
-var itemArray = [];
-var itemDetailArray = [];
-var valueArray = ["0", "1"];
+var valueArray = [];
+var valueDetailArray = [];
+var itemArray = ["0", "1"];
 var gender = "both";
-var helpToggle = false;
+
+// RESET FEED
+function newFeed(){
+	feedName = "dummi";
+	valueArray = ["phone"];
+	valueDetailArray = ["us"];
+	itemArray = ["0", "1"];
+	gender = "both";
+	document.getElementById("valueTypeSelection").value = "firstName";
+	document.getElementById("both").checked = true;
+
+	$("#feedName").val("");
+	$("#itemNumber").val(itemArray.length);
+
+	removeValue("all");
+	generateUniqueURL();
+	updateFeed();
+}
 
 // CODE GEN FOR LINK
 function generateUniqueURL(){
@@ -51,20 +68,21 @@ function updateOutput(){
 	document.getElementById("feedTypeTitle").innerHTML = type;
 	document.getElementById("valueTypeLabel").innerHTML = "value type";
 
-	if(type == "CSV"){
-		outputType = "CSV";
-		document.getElementById("feedNameLabel").innerHTML = "File Name";
-		$("#feedName").attr("placeholder", "Name your CSV File");
-		document.getElementById("itemNumberLabel").innerHTML = "# of rows";
-		updateFeed();
-	}else{
-		outputType = "JSON";
-		document.getElementById("feedNameLabel").innerHTML = "Feed Name";
-		$("#feedName").attr("placeholder", "Name your Feed");
-		document.getElementById("itemNumberLabel").innerHTML = "# of items";
-
-		updateFeed();
+	switch(type){
+		case "CSV":
+			outputType = "CSV";
+			document.getElementById("feedNameLabel").innerHTML = "File Name";
+			$("#feedName").attr("placeholder", "Name Your CSV File");
+			document.getElementById("itemNumberLabel").innerHTML = "# of rows";
+			break;
+		default:
+			outputType = "JSON";
+			document.getElementById("feedNameLabel").innerHTML = "Primary Keyword Name";
+			$("#feedName").attr("placeholder", "Name Your Primary Keyword");
+			document.getElementById("itemNumberLabel").innerHTML = "# of items";
 	}
+
+	updateFeed();
 
 }
 
@@ -106,18 +124,19 @@ function addValue(){
 	var selectedValueField = document.getElementById("valueTypeSelection");
 	var selectedValue = selectedValueField.options[selectedValueField.selectedIndex].value;
 
-	var id = itemArray.length;
+	var id = valueArray.length;
 	if(selectedValue == "phone"){
-		itemArray.push("usPhone");
+		valueArray.push("usPhone");
 	}else{
-		itemArray.push(selectedValue);
+		valueArray.push(selectedValue);
 	}
+
 	if(selectedValue == "phone"){
-		itemDetailArray.push("us");
+		valueDetailArray.push("us");
 	}else if(selectedValue == "age"){
-		itemDetailArray.push("ad");
+		valueDetailArray.push("ad");
 	}else{
-		itemDetailArray.push("none");
+		valueDetailArray.push("none");
 	}
 
 	if(selectedValue == "phone"){
@@ -133,21 +152,38 @@ function addValue(){
 
 function removeValue(id){
 	if(id == "all"){
-		itemArray = [];
-		itemDetailArray = [];
+		valueArray = [];
+		valueDetailArray = [];
 		document.getElementById("valueWrapper").innerHTML = "";
 	}else{
-		itemArray.splice(id, 1);
-		itemDetailArray.splice(id, 1);
+		if(id != "none"){
+			valueArray.splice(id, 1);
+			valueDetailArray.splice(id, 1);
+		}
 		document.getElementById("valueWrapper").innerHTML = "";
-		for(var i = 0;i < itemArray.length;i+=1){
-			if(itemArray[i] == "phone"){
-				$("#valueWrapper").append('<section class="block" id="valueBlock' + i +'"><a href="javascript:removeValue(' + i + ')" class="close">✕</a><span class="node-name">' + itemArray[i] + '</span><input type="checkbox" id="phoneNumber' + i + '" name="toggles" class="toggle-switch" checked><label class="toggle" for="phoneNumber' + i + '"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">Country</span><ul class="radio-list"><li><input type="radio" name="phone' + i + '" onclick="updateItemDetail(this.id)" id="us' + i + '" checked><label for="us' + i + '">US</label></li><li><input type="radio" name="phone' + i + '" onclick="updateItemDetail(this.id)" id="uk' + i + '"><label for="uk' + i + '">UK</label></li><li><input type="radio" name="phone' + i + '" onclick="updateItemDetail(this.id)" id="de' + i + '"><label for="de' + i + '">DE</label></li></ul></div></div></section>');
-				document.getElementById(itemDetailArray[i] + i).checked = true;
-			}else if(itemArray[i] == "age"){
-				$("#valueWrapper").append('<section class="block" id="valueBlock' + i +'"><a href="javascript:removeValue(' + i + ')" class="close">✕</a><span class="node-name">' + itemArray[i] + '</span><input type="checkbox" id="age' + i + '" name="toggles" class="toggle-switch" checked><label class="toggle" for="age' + i + '"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">boundries</span><ul class="radio-list"><li><input type="radio" name="age' + i + '" onclick="updateItemDetail(this.id)" id="cd' + i + '"><label for="cd' + i + '">Child</label></li><li><input type="radio" name="age' + i + '" onclick="updateItemDetail(this.id)" id="tn' + i + '"><label for="tn' + i + '">Teenager</label></li><li><input type="radio" name="age' + i + '" onclick="updateItemDetail(this.id)" id="ad' + i + '" checked><label for="ad' + i + '">Adult</label></li><li><input type="radio" name="age' + i + '" onclick="updateItemDetail(this.id)" id="sn' + i + '"><label for="sn' + i + '">Senior</label></li></ul></div></div></section>');
+		for(var i = 0;i < valueArray.length;i+=1){
+			if(valueArray[i] == "phone" || valueArray[i] == "usPhone" || valueArray[i] == "ukPhone" || valueArray[i] == "dePhone"){
+				$("#valueWrapper").append('<section class="block" id="valueBlock' + i +'"><a href="javascript:removeValue(' + i + ')" class="close">✕</a><span class="node-name">' + valueArray[i] + '</span><input type="checkbox" id="phoneNumber' + i + '" name="toggles" class="toggle-switch" checked><label class="toggle" for="phoneNumber' + i + '"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">Country</span><ul class="radio-list"><li><input type="radio" name="phone' + i + '" onclick="updateItemDetail(this.id)" id="us' + i + '" checked><label for="us' + i + '">US</label></li><li><input type="radio" name="phone' + i + '" onclick="updateItemDetail(this.id)" id="uk' + i + '"><label for="uk' + i + '">UK</label></li><li><input type="radio" name="phone' + i + '" onclick="updateItemDetail(this.id)" id="de' + i + '"><label for="de' + i + '">DE</label></li></ul></div></div></section>');
+				document.getElementById(valueDetailArray[i] + i).checked = true;
+			}else if(valueArray[i] == "age" || valueArray[i] == "cdAge" || valueArray[i] == "tnAge" || valueArray[i] == "snAge"){
+				var blockTitle = "";
+				switch(valueArray[i]){
+					case "cdAge":
+						blockTitle = "childAge";
+						break;
+					case "tnAge":
+						blockTitle = "teenAge";
+						break;
+					case "snAge":
+						blockTitle = "seniorAge";
+						break;
+					default:
+						blockTitle = "age";
+				}
+				$("#valueWrapper").append('<section class="block" id="valueBlock' + i +'"><a href="javascript:removeValue(' + i + ')" class="close">✕</a><span class="node-name">' + blockTitle + '</span><input type="checkbox" id="age' + i + '" name="toggles" class="toggle-switch" checked><label class="toggle" for="age' + i + '"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">boundries</span><ul class="radio-list"><li><input type="radio" name="age' + i + '" onclick="updateItemDetail(this.id)" id="cd' + i + '"><label for="cd' + i + '">Child</label></li><li><input type="radio" name="age' + i + '" onclick="updateItemDetail(this.id)" id="tn' + i + '"><label for="tn' + i + '">Teenager</label></li><li><input type="radio" name="age' + i + '" onclick="updateItemDetail(this.id)" id="ad' + i + '" checked><label for="ad' + i + '">Adult</label></li><li><input type="radio" name="age' + i + '" onclick="updateItemDetail(this.id)" id="sn' + i + '"><label for="sn' + i + '">Senior</label></li></ul></div></div></section>');
+				document.getElementById(valueDetailArray[i] + i).checked = true;
 			}else{
-				$("#valueWrapper").append('<section class="block" id="valueBlock' + i +'"><a href="javascript:removeValue(' + i + ')" class="close">✕</a><span class="node-name">' + itemArray[i] + '</span></section>');
+				$("#valueWrapper").append('<section class="block" id="valueBlock' + i +'"><a href="javascript:removeValue(' + i + ')" class="close">✕</a><span class="node-name">' + valueArray[i] + '</span></section>');
 			}
 		}
 	}
@@ -157,21 +193,28 @@ function removeValue(id){
 
 // VALUE OPTIONS
 function updateItemDetail(id){
-	if(id == "both"){
-		gender = "both";
-	}else if(id == "male"){
-		gender = "male";
-	}else if(id == "female"){
-		gender = "female";
-	}else{
-		var detail = id.substring(0,2);
-		var itemId = id.substr(2);
-		itemDetailArray[itemId] = detail;
-		if(detail == "us" || detail == "uk" || detail == "de"){
-			itemArray[itemId] = detail + "Phone";
-		}
+	switch(id){
+		case "both":
+			gender = "both";
+			break;
+		case "male":
+			gender = "male";
+			break;
+		case "female":
+			gender = "female";
+			break;
+		default:
+			var detail = id.substring(0,2);
+			var itemId = id.substr(2);
+			valueDetailArray[itemId] = detail;
+			if(detail == "us" || detail == "uk" || detail == "de"){
+				valueArray[itemId] = detail + "Phone";
+			}else if(detail == "cd" || detail == "tn" || detail == "sn"){
+				valueArray[itemId] = detail + "Age";
+			}
 	}
 
+	removeValue("none");
 	updateFeed();
 }
 
@@ -186,10 +229,10 @@ $('#itemNumber').focusin('input',function(e){
 			$("#itemNumber").val(value);
 
 		    if(value != ""){
-		    	valueArray = [];
+		    	itemArray = [];
 				for(var i = 0; i < value; i+=1){
 
-					valueArray.push('"' + i + '"');
+					itemArray.push('"' + i + '"');
 
 				}
 		    }else{
@@ -207,48 +250,11 @@ $('#itemNumber').focusout('input',function(e){
 	var value = $("#itemNumber").val();
 	if(value == ""){
 		$("#itemNumber").val("2");
-		valueArray = ["0", "1"];
+		itemArray = ["0", "1"];
 		updateFeed();
 	}
 
 });
-
-// RESET FEED
-function newFeed(){
-	feedName = "dummi";
-	itemArray = ["phone"];
-	itemDetailArray = ["us"];
-	valueArray = ["0", "1"];
-	gender = "both";
-	helpToggle = false;
-	document.getElementById("valueTypeSelection").value = "firstName";
-	document.getElementById("both").checked = true;
-
-	$("#feedName").val("");
-	$("#itemNumber").val(valueArray.length);
-
-	removeValue("all");
-	generateUniqueURL();
-	updateFeed();
-}
-
-// DISPLAY HELP
-function toggleHelp(){
-	if(helpToggle == false){
-		helpToggle = true;
-		var helpText = '<b>Welcome to dummi.io help</b><br>Note: To go back to your feed press the help button again<br><br><b>What is Feed.Me for?</b><br>Feed.Me is a tool for developers and designers, you can simply and easily generate spoof JSON data, which is hosted on Feed.Me or you can download as a json file. This helps prototyping and testing if your code would work with real JSON data.<br><br><b>How do I pull data from the downloaded json? (Js)</b><br>$.getJSON("path/to/dummi.json", function(json) {<br>&nbsp;&nbsp;console.log("JSON Data: " + json.dummi[1].fullName);<br>});';
-		document.getElementById("codeField").innerHTML = helpText;
-		document.getElementById("feedTypeTitle").innerHTML = "Feed.Me Help";
-		$("#newFeed").css("display", "none");
-		document.getElementById("helpLink").innerHTML = "Back to Feed";
-	}else{
-		helpToggle = false;
-		document.getElementById("feedTypeTitle").innerHTML = "JSON";
-		$("#newFeed").css("display", "inline");
-		document.getElementById("helpLink").innerHTML = "Help";
-		updateFeed();
-	}
-}
 
 // FUNCTION FOR THE COPY BUTTON
 function copyLink(){
@@ -268,176 +274,208 @@ function copyLink(){
 
 // FUNCTION CONTROLLING WHAT IS SEEN IN THE MAIN STAGE (CODEFIELD)
 function updateFeed(){
-	if(helpToggle == false){
 
-		var finalJSON = '{<br>"<span>' + feedName + '</span>": [<br>';
-		var finalCSV = "<span>fullName";
+	var finalJSON = '{<br>"<span>' + feedName + '</span>": [<br>';
+	var finalCSV = "<span>fullName";
 
-		if(itemArray.length > 0){
+	if(valueArray.length > 0){
+		finalCSV = finalCSV + ",";
+	}else{
+		finalCSV = finalCSV + "</span><br>";
+	}
+
+	for(var i = 0; i < valueArray.length; i+=1){
+		finalCSV = finalCSV + valueArray[i];
+		if(valueArray.length > i+1){
 			finalCSV = finalCSV + ",";
 		}else{
 			finalCSV = finalCSV + "</span><br>";
 		}
+	}
 
-		for(var i = 0; i < itemArray.length; i+=1){
-			finalCSV = finalCSV + itemArray[i];
-			if(itemArray.length > i+1){
-				finalCSV = finalCSV + ",";
-			}else{
-				finalCSV = finalCSV + "</span><br>";
+	var valueAmount = itemArray.length;
+	for(var i = 0; i < valueAmount; i+=1){
+
+		finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;{<br>';
+
+		var fullName = "";
+		var itemGender = "";
+		if(gender == "male"){
+			fullName = chance.name({ gender: "male" });
+		}else if(gender == "female"){
+			fullName = chance.name({ gender: "female" });
+		}else{
+			var random = chance.integer({min: 1, max: 2});
+			switch(random){
+				case 1:
+					fullName = chance.name({ gender: "female" });
+					itemGender = "female"
+					break;
+				default:
+					fullName = chance.name({ gender: "male" });
+					itemGender = "male";
 			}
+			
 		}
 
-		var valueAmount = valueArray.length;
-		for(var i = 0; i < valueAmount; i+=1){
+		var firstName = fullName;
+    	firstName = firstName.split(' ')[0];
+    	firstName = firstName.toLowerCase();
+    	firstName = firstName.charAt(0);
+    	var lastName = fullName;
+    	lastName = lastName.split(' ')[1];
+    	username = firstName + lastName;
 
-			finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;{<br>';
+    	var childAge = chance.integer({min: 1, max: 12});
+    	var teenAge = chance.integer({min: 13, max: 17});
+    	var age = chance.integer({min: 18, max: 61});
+    	var seniorAge = chance.integer({min: 62, max: 95});
 
-			var fullName = "";
-			if(gender == "male"){
-				fullName = chance.name({ gender: "male" });
-			}else if(gender == "female"){
-				fullName = chance.name({ gender: "female" });
-			}else{
-				fullName = chance.name();
-			}
+    	var emailVerified = chance.bool({likelihood: 60});
 
-			var firstName = fullName;
-	    	firstName = firstName.split(' ')[0];
-	    	firstName = firstName.toLowerCase();
-	    	firstName = firstName.charAt(0);
-	    	var lastName = fullName;
-	    	lastName = lastName.split(' ')[1];
-	    	firstPlusLast = firstName + lastName;
+    	var usPhone = chance.phone({ country: 'us', mobile: true });
+    	var ukPhone = chance.phone({ country: 'uk', mobile: true });
+    	var dePhoneOptions = ["0150", "0151", "0160", "0170", "0171", "0175", "0152", "0162", "0172", "0173", "0174", "0155", "0163", "0177", "0178", "0159", "0176", "0179", "0161", "0167", "0164", "0168", "0169"];
+    	var randomOption = chance.integer({min: 1, max: dePhoneOptions.length-1});
+    	var dePhone = dePhoneOptions[randomOption] + "&nbsp;" + chance.integer({min: 1000000, max: 9999999});
 
-	    	var emailVerified = chance.bool({likelihood: 60});
+		finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>fullName</span>": "' + fullName + '"';
+		finalCSV = finalCSV + fullName;
 
-	    	var usPhone = chance.phone({ country: 'us', mobile: true });
-	    	var ukPhone = chance.phone({ country: 'uk', mobile: true });
-	    	var dePhoneOptions = ["0150", "0151", "0160", "0170", "0171", "0175", "0152", "0162", "0172", "0173", "0174", "0155", "0163", "0177", "0178", "0159", "0176", "0179", "0161", "0167", "0164", "0168", "0169"];
-	    	var randomOption = chance.integer({min: 1, max: dePhoneOptions.length-1});
-	    	var dePhone = dePhoneOptions[randomOption] + "&nbsp;" + chance.integer({min: 1000000, max: 9999999});
+		if(valueArray.length == 0){
+			finalJSON = finalJSON + '<br>';
+		}else{
+			finalJSON = finalJSON + ',<br>';
+			finalCSV = finalCSV + ",";
+		}
 
-			finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>fullName</span>": "' + fullName + '"';
-			finalCSV = finalCSV + fullName;
+		for(var j = 0;j < valueArray.length;j+=1){
+			var itemType = valueArray[j];
+			var itemDetail = valueDetailArray[j];
 
-			if(itemArray.length == 0){
-				finalJSON = finalJSON + '<br>';
-			}else{
-				finalJSON = finalJSON + ',<br>';
-				finalCSV = finalCSV + ",";
-			}
-
-			for(var j = 0;j < itemArray.length;j+=1){
-				var itemType = itemArray[j];
-				var itemDetail = itemDetailArray[j];
-			    if(itemType == "firstName"){
-					name = fullName.substring(0, fullName.indexOf(' '));
-					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>firstName</span>": "' + name + '"';
-					finalCSV = finalCSV + name;
-			    }else if(itemType == "lastName"){
-					name = fullName.split(' ')[1];
-					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>lastName</span>": "' + name + '"';
-					finalCSV = finalCSV + name;
-			    }else if(itemType == "age"){
-			    	var age = 0;
-			    	if(itemDetail == "cd"){
-			    		age = chance.integer({min: 1, max: 12});
-			    	}else if(itemDetail == "tn"){
-			    		age = chance.integer({min: 13, max: 17});
-			    	}else if(itemDetail == "sn"){
-			    		age = chance.integer({min: 62, max: 95});
-			    	}else{
-			    		age = chance.integer({min: 18, max: 61});
-			    	}
-			    	finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>age</span>": ' + age;
-			    	finalCSV = finalCSV + age;
-			    }else if(itemType == "username"){
-			    	var username = firstPlusLast;
+			switch(itemType){
+				case "firstName":
+					firstName = fullName.split(' ')[0];
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>firstName</span>": "' + firstName + '"';
+					finalCSV = finalCSV + firstName;
+					break;
+				case "lastName":
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>lastName</span>": "' + lastName + '"';
+					finalCSV = finalCSV + lastName;
+					break;
+				case "gender":
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>gender</span>": "' + itemGender + '"';
+					finalCSV = finalCSV + itemGender;
+					break;
+				case "cdAge":
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>childAge</span>": ' + childAge;
+		    		finalCSV = finalCSV + childAge;
+					break;
+				case "tnAge":
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>teenAge</span>": ' + teenAge;
+		    		finalCSV = finalCSV + teenAge;
+					break;
+				case "age":
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>age</span>": ' + age;
+		    		finalCSV = finalCSV + age;
+					break;
+				case "snAge":
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>seniorAge</span>": ' + seniorAge;
+		    		finalCSV = finalCSV + seniorAge;
+					break;
+				case "username":
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>username</span>": "' + username + '"';
 					finalCSV = finalCSV + username;
-			    }else if(itemType == "email"){
-			    	var email = firstPlusLast + "@example.com";
+					break;
+				case "email":
+					var email = username + "@example.com";
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>email</span>": "' + email + '"';
 					finalCSV = finalCSV + email;
-			    }else if(itemType == "emailVerified"){
-					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>emailVerified</span>": ' + emailVerified;
-					finalCSV = finalCSV + emailVerified;
-			    }else if(itemType == "twitterHandle"){
-			    	var username = "@" + firstPlusLast;
+					break;
+				case "emailVerified":
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>username</span>": "' + username + '"';
+					finalCSV = finalCSV + username;
+					break;
+				case "twitterHandle":
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>twitterHandle</span>": "' + username + '"';
 					finalCSV = finalCSV + username;
-			    }else if(itemType == "usPhone"){
-			    	finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>usPhone</span>": "' + usPhone + '"';
-		    		finalCSV = finalCSV + usPhone;
-			    }else if(itemType == "ukPhone"){
-		    		finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>ukPhone</span>": "' + ukPhone + '"';
-		    		finalCSV = finalCSV + ukPhone;
-			    }else if(itemType == "dePhone"){
-			    	finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>dePhone</span>": "' + dePhone + '"';
-		    		finalCSV = finalCSV + dePhone;
-			    }
-			    if(j+1 == itemArray.length){
-					finalJSON = finalJSON + '<br>';
-					// finalCSV = finalCSV + "<br>";
-				}else{
-					finalJSON = finalJSON + ',<br>';
-					finalCSV = finalCSV + ",";
-				}
+					break;
+				case "usPhone":
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>usPhone</span>": "' + usPhone + '"';
+	    			finalCSV = finalCSV + usPhone;
+					break;
+				case "ukPhone":
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>ukPhone</span>": "' + ukPhone + '"';
+	    			finalCSV = finalCSV + ukPhone;
+					break;
+				case "dePhone":
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>dePhone</span>": "' + dePhone + '"';
+	    			finalCSV = finalCSV + dePhone;
+					break;
+				default:
+					console.log("an error has occured, please contact @seven11nash on Twitter or via marc@dummi.io to report this bug.");
 			}
 
-			finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;}';
-
-			if(i+1 == valueAmount){
+		    if(j+1 == valueArray.length){
 				finalJSON = finalJSON + '<br>';
 			}else{
 				finalJSON = finalJSON + ',<br>';
-				finalCSV = finalCSV + '<br>';
+				finalCSV = finalCSV + ",";
 			}
 
 		}
-		if(valueAmount == 0){
+
+		finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;}';
+
+		if(i+1 == valueAmount){
 			finalJSON = finalJSON + '<br>';
+		}else{
+			finalJSON = finalJSON + ',<br>';
+			finalCSV = finalCSV + '<br>';
 		}
 
-		var JSONend = "]<br>}";
-		finalJSON = finalJSON + JSONend;
+	}
+	if(valueAmount == 0){
+		finalJSON = finalJSON + '<br>';
+	}
 
-		document.getElementById("codeField").innerHTML = "";
-		if(outputType == "CSV"){
+	finalJSON = finalJSON + "]<br>}";
+
+	document.getElementById("codeField").innerHTML = "";
+	switch(outputType){
+		case "CSV":
 			document.getElementById("codeField").innerHTML = finalCSV;
-		}else{
+			break;
+		default:
 			document.getElementById("codeField").innerHTML = finalJSON;
-		}
+	}
 
-		if(outputType == "CSV"){
-			// DOWNLOAD CSV
-			finalCSV = "data:text/csv;charset=utf-8," + finalCSV;
-			finalCSV = finalCSV.split('&nbsp;').join('');
-			finalCSV = finalCSV.split('<span>').join('');
-			finalCSV = finalCSV.split('</span>').join('');
-			finalCSV = finalCSV.split('<br>').join('\n');
-			var data = encodeURI(finalCSV);
-			document.getElementById("implementField").innerHTML = "";
-			$('#implementField').append('<input type="text" id="path--field" value="Download as an CSV file" readonly><a href="data:' + data + '" download="' + feedName + '.csv">Download</a>');
-		}else{
-			// DOWNLOAD JSON
-			finalJSON = finalJSON.split('&nbsp;').join('');
-			finalJSON = finalJSON.split('<span>').join('');
-			finalJSON = finalJSON.split('</span>').join('');
-			finalJSON = finalJSON.split('<br>').join('');
-			var data = finalJSON;
-			data = JSON.parse(data);
-			data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
-			document.getElementById("implementField").innerHTML = "";
-			$('#implementField').append('<input type="text" id="path--field" value="Download as a JSON file" readonly><a href="data:' + data + '" download="' + feedName + '.json">Download</a>');
-		}
+	if(outputType == "CSV"){
+		// DOWNLOAD CSV
+		finalCSV = "data:text/csv;charset=utf-8," + finalCSV;
+		finalCSV = finalCSV.split('&nbsp;').join('');
+		finalCSV = finalCSV.split('<span>').join('');
+		finalCSV = finalCSV.split('</span>').join('');
+		finalCSV = finalCSV.split('<br>').join('\n');
+		var data = encodeURI(finalCSV);
+		document.getElementById("implementField").innerHTML = "";
+		$('#implementField').append('<input type="text" id="path--field" value="Download as an CSV file" readonly><a href="data:' + data + '" download="' + feedName + '.csv">Download</a>');
+	}else{
+		// DOWNLOAD JSON
+		finalJSON = finalJSON.split('&nbsp;').join('');
+		finalJSON = finalJSON.split('<span>').join('');
+		finalJSON = finalJSON.split('</span>').join('');
+		finalJSON = finalJSON.split('<br>').join('');
+		var data = finalJSON;
+		data = JSON.parse(data);
+		data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
+		document.getElementById("implementField").innerHTML = "";
+		$('#implementField').append('<input type="text" id="path--field" value="Download as a JSON file" readonly><a href="data:' + data + '" download="' + feedName + '.json">Download</a>');
 	}
 }
 
 // INITIAL START
-generateUniqueURL();
-updateFeed();
+newFeed();
 
 
 
