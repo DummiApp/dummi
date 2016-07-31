@@ -307,8 +307,10 @@ function updateFeed(){
 		var fullName = "";
 		var itemGender = "";
 		if(gender == "male"){
+			itemGender = "male"
 			fullName = chance.name({ gender: "male" });
 		}else if(gender == "female"){
+			itemGender = "female"
 			fullName = chance.name({ gender: "female" });
 		}else{
 			var random = chance.integer({min: 1, max: 2});
