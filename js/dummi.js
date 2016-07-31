@@ -147,6 +147,7 @@ function addValue(){
 		$("#valueWrapper").append('<section class="block" id="valueBlock' + id +'"><a href="javascript:removeValue(' + id + ')" class="close">✕</a><span class="node-name">' + selectedValue + '</span></section>');
 	}
 
+	removeValue("none");
 	updateFeed();
 }
 
