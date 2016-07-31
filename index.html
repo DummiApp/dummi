@@ -43,6 +43,13 @@
 			</section>
 			
 			<section class="block">
+				<label for="type" class="eyebrow" id="valuePoolLabel">Value Pool</label>
+				<div class="drop-down">
+					<select id="valuePoolSelection" onChange="updateValuePool()">
+						<option value="Users">Users</option>
+						<option value="Articles">Articles</option>
+					</select>
+				</div>
 				<label for="type" class="eyebrow" id="valueTypeLabel">Value Type</label>
 				<div class="drop-down">
 					<select id="valueTypeSelection">
@@ -62,25 +69,7 @@
 
 			<!-- Block -->
 			<section class="block">
-				<span class="node-name">fullName</span>
-				<input type="checkbox" id="fullName" name="toggles" class="toggle-switch" checked>
-				<label class="toggle" for="fullName"><span></span></label>
-				
-				<!-- Options -->
-				<div class="options">
-					<div class="options--frame">
-						
-						<!-- Gender	 -->
-						<span class="eyebrow">Gender</span>
-						<ul class="radio-list">
-							<li><input type="radio" name="gender" id="both" onclick="updateItemDetail(this.id)" checked><label for="both">Both</label></li>
-							<li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="male"><label for="male">Male</label></li>
-							<li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="female"><label for="female">Female</label></li>
-						</ul>
-
-					</div>
-				</div>
-
+				<span class="node-name">id</span>
 			</section>
 
 			<!-- Value Wrapper -->

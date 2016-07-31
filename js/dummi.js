@@ -4,18 +4,29 @@
 // INITIAL VARIABLES
 var outputType = "JSON";
 var feedName = "dummi";
-var valueArray = [];
-var valueDetailArray = [];
+var valueArray = ["fullName"];
+var valueDetailArray = ["both"];
 var itemArray = ["0", "1"];
+var valuePool = "Users";
 var gender = "both";
 
 // RESET FEED
 function newFeed(){
 	feedName = "dummi";
-	valueArray = ["phone"];
-	valueDetailArray = ["us"];
-	itemArray = ["0", "1"];
+	valueArray = ["fullName"];
 	gender = "both";
+	valueDetailArray = [gender];
+	itemArray = ["0", "1"];
+	valuePool = "Users";
+
+	document.getElementById("valueTypeSelection").innerHTML = "";
+	$("#valueTypeSelection").append('<option value="firstName">firstName</option><option value="lastName">lastName</option><option value="gender">gender</option><option value="age">age</option><option value="username">username</option><option value="email">email</option><option value="emailVerified">emailVerified</option><option value="phone">phone</option><option value="twitterHandle">twitterHandle</option>');
+
+	document.getElementById("valueWrapper").innerHTML = "";
+	$("#valueWrapper").append('<section class="block"><span class="node-name">fullName</span><input type="checkbox" id="fullName" name="toggles" class="toggle-switch" checked><label class="toggle" for="fullName"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">Gender</span><ul class="radio-list"><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="both" checked><label for="both">Both</label></li><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="male"><label for="male">Male</label></li><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="female"><label for="female">Female</label></li></ul></div></div></section>');
+	document.getElementById(gender).checked = true;
+
+	document.getElementById("valuePoolSelection").value = "Users";
 	document.getElementById("valueTypeSelection").value = "firstName";
 	document.getElementById("both").checked = true;
 
@@ -118,6 +129,39 @@ $('#feedName').focusout('input',function(e){
 
 });
 
+// UPDATE VALUE POOL
+function updateValuePool(){
+
+	var selectedValueField = document.getElementById("valuePoolSelection");
+	var type = selectedValueField.options[selectedValueField.selectedIndex].value;
+
+	console.log("ikansld");
+
+	valueArray = [];
+	valueDetailArray = [];
+
+	document.getElementById("valueTypeSelection").innerHTML = "";
+
+	switch(type){
+		case "Users":
+			valuePool = "Users";
+			valueArray = ["fullName"];
+			valueDetailArray = [gender];
+			$("#valueTypeSelection").append('<option value="firstName">firstName</option><option value="lastName">lastName</option><option value="gender">gender</option><option value="age">age</option><option value="username">username</option><option value="email">email</option><option value="emailVerified">emailVerified</option><option value="phone">phone</option><option value="twitterHandle">twitterHandle</option>');
+			break;
+		case "Articles":
+			valuePool = "Articles";
+			$("#valueTypeSelection").append('<option value="title">title</option><option value="subTitle">subTitle</option><option value="createdOn">createdOn</option><option value="createdBy">createdBy</option><option value="text">text</option><option value="rating">rating</option>');
+			break;
+		default:
+			console.log("an error has occured, please contact @seven11nash on Twitter or via marc@dummi.io to report this bug.");
+	}
+
+	removeValue("all");
+	updateFeed();
+
+}
+
 // VALUES
 function addValue(){
 
@@ -135,6 +179,8 @@ function addValue(){
 		valueDetailArray.push("us");
 	}else if(selectedValue == "age"){
 		valueDetailArray.push("ad");
+	}else if(selectedValue == "createdOn"){
+		valueDetailArray.push("uD");
 	}else{
 		valueDetailArray.push("none");
 	}
@@ -143,19 +189,29 @@ function addValue(){
 		$("#valueWrapper").append('<section class="block" id="valueBlock' + id +'"><a href="javascript:removeValue(' + id + ')" class="close">✕</a><span class="node-name">' + selectedValue + '</span><input type="checkbox" id="phoneNumber' + id + '" name="toggles" class="toggle-switch" checked><label class="toggle" for="phoneNumber' + id + '"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">Country</span><ul class="radio-list"><li><input type="radio" name="phone' + id + '" onclick="updateItemDetail(this.id)" id="us' + id + '" checked><label for="us' + id + '">US</label></li><li><input type="radio" name="phone' + id + '" onclick="updateItemDetail(this.id)" id="uk' + id + '"><label for="uk' + id + '">UK</label></li><li><input type="radio" name="phone' + id + '" onclick="updateItemDetail(this.id)" id="de' + id + '"><label for="de' + id + '">DE</label></li></ul></div></div></section>');
 	}else if(selectedValue == "age"){
 		$("#valueWrapper").append('<section class="block" id="valueBlock' + id +'"><a href="javascript:removeValue(' + id + ')" class="close">✕</a><span class="node-name">' + selectedValue + '</span><input type="checkbox" id="age' + id + '" name="toggles" class="toggle-switch" checked><label class="toggle" for="age' + id + '"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">boundries</span><ul class="radio-list"><li><input type="radio" name="age' + id + '" onclick="updateItemDetail(this.id)" id="cd' + id + '"><label for="cd' + id + '">Child</label></li><li><input type="radio" name="age' + id + '" onclick="updateItemDetail(this.id)" id="tn' + id + '"><label for="tn' + id + '">Teenager</label></li><li><input type="radio" name="age' + id + '" onclick="updateItemDetail(this.id)" id="ad' + id + '" checked><label for="ad' + id + '">Adult</label></li><li><input type="radio" name="age' + id + '" onclick="updateItemDetail(this.id)" id="sn' + id + '"><label for="sn' + id + '">Senior</label></li></ul></div></div></section>');
+	}else if(selectedValue == "createdOn"){
+		$("#valueWrapper").append('<section class="block" id="valueBlock' + id +'"><a href="javascript:removeValue(' + id + ')" class="close">✕</a><span class="node-name">' + selectedValue + '</span><input type="checkbox" id="dateType' + id + '" name="toggles" class="toggle-switch" checked><label class="toggle" for="dateType' + id + '"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">Date Type</span><ul class="radio-list"><li><input type="radio" name="dateType' + id + '" onclick="updateItemDetail(this.id)" id="uD' + id + '"><label for="uD' + id + '">mm/dd/yyyy</label></li><li><input type="radio" name="dateType' + id + '" onclick="updateItemDetail(this.id)" id="oD' + id + '"><label for="oD' + id + '">dd/mm/yyyy</label></li></ul></div></div></section>');
 	}else{
 		$("#valueWrapper").append('<section class="block" id="valueBlock' + id +'"><a href="javascript:removeValue(' + id + ')" class="close">✕</a><span class="node-name">' + selectedValue + '</span></section>');
 	}
 
+	console.log(valueDetailArray);
 	removeValue("none");
 	updateFeed();
 }
 
 function removeValue(id){
 	if(id == "all"){
-		valueArray = [];
-		valueDetailArray = [];
 		document.getElementById("valueWrapper").innerHTML = "";
+		if(valuePool == "Users"){
+			valueArray = ["fullName"];
+			valueDetailArray = [gender];
+			$("#valueWrapper").append('<section class="block"><span class="node-name">fullName</span><input type="checkbox" id="fullName" name="toggles" class="toggle-switch" checked><label class="toggle" for="fullName"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">Gender</span><ul class="radio-list"><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="both" checked><label for="both">Both</label></li><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="male"><label for="male">Male</label></li><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="female"><label for="female">Female</label></li></ul></div></div></section>');
+			document.getElementById(valueDetailArray[0]).checked = true;
+		}else{
+			valueArray = [];
+			valueDetailArray = [];
+		}
 	}else{
 		if(id != "none"){
 			valueArray.splice(id, 1);
@@ -163,7 +219,10 @@ function removeValue(id){
 		}
 		document.getElementById("valueWrapper").innerHTML = "";
 		for(var i = 0;i < valueArray.length;i+=1){
-			if(valueArray[i] == "phone" || valueArray[i] == "usPhone" || valueArray[i] == "ukPhone" || valueArray[i] == "dePhone"){
+			if(valueArray[i] == "fullName"){
+				$("#valueWrapper").append('<section class="block"><span class="node-name">fullName</span><input type="checkbox" id="fullName" name="toggles" class="toggle-switch" checked><label class="toggle" for="fullName"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">Gender</span><ul class="radio-list"><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="both" checked><label for="both">Both</label></li><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="male"><label for="male">Male</label></li><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="female"><label for="female">Female</label></li></ul></div></div></section>');
+				document.getElementById(gender).checked = true;
+			}else if(valueArray[i] == "phone" || valueArray[i] == "usPhone" || valueArray[i] == "ukPhone" || valueArray[i] == "dePhone"){
 				$("#valueWrapper").append('<section class="block" id="valueBlock' + i +'"><a href="javascript:removeValue(' + i + ')" class="close">✕</a><span class="node-name">' + valueArray[i] + '</span><input type="checkbox" id="phoneNumber' + i + '" name="toggles" class="toggle-switch" checked><label class="toggle" for="phoneNumber' + i + '"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">Country</span><ul class="radio-list"><li><input type="radio" name="phone' + i + '" onclick="updateItemDetail(this.id)" id="us' + i + '" checked><label for="us' + i + '">US</label></li><li><input type="radio" name="phone' + i + '" onclick="updateItemDetail(this.id)" id="uk' + i + '"><label for="uk' + i + '">UK</label></li><li><input type="radio" name="phone' + i + '" onclick="updateItemDetail(this.id)" id="de' + i + '"><label for="de' + i + '">DE</label></li></ul></div></div></section>');
 				document.getElementById(valueDetailArray[i] + i).checked = true;
 			}else if(valueArray[i] == "age" || valueArray[i] == "cdAge" || valueArray[i] == "tnAge" || valueArray[i] == "snAge"){
@@ -182,6 +241,9 @@ function removeValue(id){
 						blockTitle = "age";
 				}
 				$("#valueWrapper").append('<section class="block" id="valueBlock' + i +'"><a href="javascript:removeValue(' + i + ')" class="close">✕</a><span class="node-name">' + blockTitle + '</span><input type="checkbox" id="age' + i + '" name="toggles" class="toggle-switch" checked><label class="toggle" for="age' + i + '"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">boundries</span><ul class="radio-list"><li><input type="radio" name="age' + i + '" onclick="updateItemDetail(this.id)" id="cd' + i + '"><label for="cd' + i + '">Child</label></li><li><input type="radio" name="age' + i + '" onclick="updateItemDetail(this.id)" id="tn' + i + '"><label for="tn' + i + '">Teenager</label></li><li><input type="radio" name="age' + i + '" onclick="updateItemDetail(this.id)" id="ad' + i + '" checked><label for="ad' + i + '">Adult</label></li><li><input type="radio" name="age' + i + '" onclick="updateItemDetail(this.id)" id="sn' + i + '"><label for="sn' + i + '">Senior</label></li></ul></div></div></section>');
+				document.getElementById(valueDetailArray[i] + i).checked = true;
+			}else if(valueArray[i] == "createdOn"){
+				$("#valueWrapper").append('<section class="block" id="valueBlock' + id +'"><a href="javascript:removeValue(' + i + ')" class="close">✕</a><span class="node-name">' + valueArray[i] + '</span><input type="checkbox" id="dateType' + i + '" name="toggles" class="toggle-switch" checked><label class="toggle" for="dateType' + i + '"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">Date Type</span><ul class="radio-list"><li><input type="radio" name="dateType' + i + '" onclick="updateItemDetail(this.id)" id="uD' + i + '"><label for="uD' + i + '">mm/dd/yyyy</label></li><li><input type="radio" name="dateType' + i + '" onclick="updateItemDetail(this.id)" id="oD' + i + '"><label for="oD' + i + '">dd/mm/yyyy</label></li></ul></div></div></section>');
 				document.getElementById(valueDetailArray[i] + i).checked = true;
 			}else{
 				$("#valueWrapper").append('<section class="block" id="valueBlock' + i +'"><a href="javascript:removeValue(' + i + ')" class="close">✕</a><span class="node-name">' + valueArray[i] + '</span></section>');
@@ -282,7 +344,10 @@ function copyLink(){
 function updateFeed(){
 
 	var finalJSON = '{<br>"<span>' + feedName + '</span>": [<br>';
-	var finalCSV = "<span>fullName";
+	var finalCSV = "<span>id";
+	if(valuePool == "Users"){
+		finalCSV = finalCSV + ",fullName";
+	}
 
 	if(valueArray.length > 0){
 		finalCSV = finalCSV + ",";
@@ -326,6 +391,7 @@ function updateFeed(){
 			
 		}
 
+		// FIXED VARIABLES
 		var firstName = fullName;
     	firstName = firstName.split(' ')[0];
     	firstName = firstName.toLowerCase();
@@ -347,17 +413,31 @@ function updateFeed(){
     	var randomOption = chance.integer({min: 1, max: dePhoneOptions.length-1});
     	var dePhone = dePhoneOptions[randomOption] + "&nbsp;" + chance.integer({min: 1000000, max: 9999999});
 
-		finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>fullName</span>": "' + fullName + '"';
-		finalCSV = finalCSV + fullName;
+    	var rating = chance.floating({min: 0, max: 5, fixed: 1});
 
-		if(valueArray.length == 0){
+    	// ADD ID TO ALL FILES
+    	finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>id</span>": ' + i;
+		finalCSV = finalCSV + i;
+
+		var j = 0;
+		if(valuePool == "Users"){
+			finalJSON = finalJSON + ',<br>';
+			finalCSV + ",";
+			finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>fullName</span>": "' + fullName + '"';
+			finalCSV = finalCSV + fullName;
+			j = 1;
+		}
+
+		if(valueArray.length == 0 && valuePool != "Users"){
+			finalJSON = finalJSON + '<br>';
+		}else if(valueArray.length == 1 && valuePool == "Users"){
 			finalJSON = finalJSON + '<br>';
 		}else{
 			finalJSON = finalJSON + ',<br>';
 			finalCSV = finalCSV + ",";
 		}
 
-		for(var j = 0;j < valueArray.length;j+=1){
+		for(var j = j;j < valueArray.length;j+=1){
 			var itemType = valueArray[j];
 			var itemDetail = valueDetailArray[j];
 
@@ -419,6 +499,38 @@ function updateFeed(){
 				case "dePhone":
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>dePhone</span>": "' + dePhone + '"';
 	    			finalCSV = finalCSV + dePhone;
+					break;
+				case "title":
+					var title = "Dummi.io";
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>title</span>": "' + title + '"';
+	    			finalCSV = finalCSV + title;
+					break;
+				case "subTitle":
+					var subTitle = "Generating data at its best";
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>subTitle</span>": "' + subTitle + '"';
+	    			finalCSV = finalCSV + subTitle;
+					break;
+				case "createdOn":
+					var rndYear = chance.integer({min: 1980, max: 2016});
+					var createdOn = chance.date({string: true, year: rndYear});
+					if(valueDetailArray[j] == "oD"){
+						createdOn = chance.date({string: true, year: rndYear, american: false});
+					}
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>createdOn</span>": "' + createdOn + '"';
+	    			finalCSV = finalCSV + createdOn;
+					break;
+				case "createdBy":
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>createdBy</span>": "@' + username + '"';
+	    			finalCSV = finalCSV + "@" + username;
+					break;
+				case "text":
+					var text = "Lorem ipsum dolor sit amet, clita tritani maiestatis pro ea, sea prima aeque ut. Mei modus timeam erroribus ne, stet vero per ea, eu dolorum eleifend omittantur eos. At cum laudem petentium, at ullum theophrastus usu. Eum error denique mediocritatem an.";
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>text</span>": "' + text + '"';
+	    			finalCSV = finalCSV + text;
+					break;
+				case "rating":
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>rating</span>": ' + rating;
+	    			finalCSV = finalCSV + rating;
 					break;
 				default:
 					console.log("an error has occured, please contact @seven11nash on Twitter or via marc@dummi.io to report this bug.");
