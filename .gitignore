@@ -1,2 +1,3 @@
 *.codekit
 *.codekit-cache
+*-min.js

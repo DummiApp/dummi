@@ -271,12 +271,12 @@ function updateFeed(){
 	if(helpToggle == false){
 
 		var finalJSON = '{<br>"<span>' + feedName + '</span>": [<br>';
-		var finalCSV = "fullName";
+		var finalCSV = "<span>fullName";
 
 		if(itemArray.length > 0){
 			finalCSV = finalCSV + ",";
 		}else{
-			finalCSV = finalCSV + "<br>";
+			finalCSV = finalCSV + "</span><br>";
 		}
 
 		for(var i = 0; i < itemArray.length; i+=1){
@@ -284,7 +284,7 @@ function updateFeed(){
 			if(itemArray.length > i+1){
 				finalCSV = finalCSV + ",";
 			}else{
-				finalCSV = finalCSV + "<br>";
+				finalCSV = finalCSV + "</span><br>";
 			}
 		}
 
@@ -399,6 +399,7 @@ function updateFeed(){
 		if(valueAmount == 0){
 			finalJSON = finalJSON + '<br>';
 		}
+
 		var JSONend = "]<br>}";
 		finalJSON = finalJSON + JSONend;
 
@@ -431,7 +432,6 @@ function updateFeed(){
 			document.getElementById("implementField").innerHTML = "";
 			$('#implementField').append('<input type="text" id="path--field" value="Download as a JSON file" readonly><a href="data:' + data + '" download="' + feedName + '.json">Download</a>');
 		}
-		
 	}
 }
 
