@@ -401,12 +401,12 @@ function updateFeed(){
 					finalCSV = finalCSV + email;
 					break;
 				case "emailVerified":
-					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>username</span>": "' + username + '"';
-					finalCSV = finalCSV + username;
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>emailVerified</span>": ' + emailVerified;
+					finalCSV = finalCSV + emailVerified;
 					break;
 				case "twitterHandle":
-					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>twitterHandle</span>": "' + username + '"';
-					finalCSV = finalCSV + username;
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>twitterHandle</span>": "@' + username + '"';
+					finalCSV = finalCSV + "@" + username;
 					break;
 				case "usPhone":
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>usPhone</span>": "' + usPhone + '"';
