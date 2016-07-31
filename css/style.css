@@ -320,12 +320,17 @@ Block
 
 .block .options{
 	clear: both;
-	height: 0;
 	overflow: hidden;
 	-webkit-transition: all 0.15s ease-out 0s;
 	-moz-transition: all 0.15s ease-out 0s;
 	transition: all 0.15s ease-out 0s; 	
+	height: auto;
 }
+
+/*.block .toggle-switch:checked ~ .options{
+	display: block;
+	height: 200px;
+}*/
 
 .block .options--frame{
 	margin-top: 20px;
@@ -333,10 +338,6 @@ Block
 	padding-left: 15px;
 }
 
-.toggle-switch:checked ~ .options{
-	display: block;
-	height: auto;
-}
 
 .block .toggle{
 	float: right;	
