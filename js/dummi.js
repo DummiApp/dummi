@@ -236,7 +236,7 @@ function newFeed(){
 function toggleHelp(){
 	if(helpToggle == false){
 		helpToggle = true;
-		var helpText = '<b>Welcome to Feed.Me help</b><br>Note: To go back to your feed press the help button again<br><br><b>What is Feed.Me for?</b><br>Feed.Me is a tool for developers and designers, you can simply and easily generate spoof JSON data, which is hosted on Feed.Me or you can download as a json file. This helps prototyping and testing if your code would work with real JSON data.<br><br><b>How do I pull data from the downloaded json? (Js)</b><br>$.getJSON("path/to/dummi.json", function(json) {<br>&nbsp;&nbsp;console.log("JSON Data: " + json.dummi[1].fullName);<br>});';
+		var helpText = '<b>Welcome to dummi.io help</b><br>Note: To go back to your feed press the help button again<br><br><b>What is Feed.Me for?</b><br>Feed.Me is a tool for developers and designers, you can simply and easily generate spoof JSON data, which is hosted on Feed.Me or you can download as a json file. This helps prototyping and testing if your code would work with real JSON data.<br><br><b>How do I pull data from the downloaded json? (Js)</b><br>$.getJSON("path/to/dummi.json", function(json) {<br>&nbsp;&nbsp;console.log("JSON Data: " + json.dummi[1].fullName);<br>});';
 		document.getElementById("codeField").innerHTML = helpText;
 		document.getElementById("feedTypeTitle").innerHTML = "Feed.Me Help";
 		$("#newFeed").css("display", "none");
