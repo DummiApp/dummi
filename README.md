@@ -11,6 +11,7 @@ So How Does Dummi Work?
 - Select the number of data items you want to have
 - Add the values and adjust their options to your fitting
 - Download the file
+- Finally, another way you can generate Dummi Data in one click is by simply choosing a preset!
 
 ---
 
@@ -44,7 +45,7 @@ We want to continue adding more and more types of values you can add to your dum
 #### MySQL Support (or just SQL in general)
 We are thinking about adding the ability to generate all the SQL needed to create a database with a table and fill it with dummi data all in one go. This could be useful for people who use MySQL in development.
 
-#### Dummi Data Presets
+#### More Dummi Data Presets
 Presets can be used to load in a set of data in just one click. Select the preset you want and boom! Your done and ready to get goind with your dummi data fresh from the press.
 
 #### User Accounts
