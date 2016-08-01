@@ -36,22 +36,13 @@
 			<label for="feedName" class="eyebrow" id="feedNameLabel">Primary Keyword Name</label>
 			<input type="text" id="feedName" placeholder="Name Your Primary Keyword">
 
-			<!-- PRESET SELECTION -->
-			<label for="presetSelection" class="eyebrow">Preset</label>
-			<div class="drop-down">
-				<select id="presetSelector" onChange="loadPreset()">
-					<option value="custom">Custom</option>
-					<option value="Small User Set">Small User Set</option>
-					<option value="Small News Article Set">Small News Article Set</option>
-				</select>
-			</div>
-
 			<!-- # of items -->
-			<section class="block" style="margin-top: -15px;">
+			<section class="block">
 				<label for="itemNumber" class="eyebrow" id="itemNumberLabel"># of items</label>
 				<input type="text" id="itemNumber" class="number" value="2">
 			</section>
 			
+			<!-- Value Pool Selection -->
 			<section class="block">
 				<label for="type" class="eyebrow" id="valuePoolLabel">Value Pool</label>
 				<div class="drop-down">
@@ -67,11 +58,17 @@
 					</select>
 				</div>
 				<a href="javascript:addValue()" class="btn btn-add" style="margin: 0px;">Add Value</a>
-			</section>
 
-			<!-- Block -->
-			<section class="block">
-				<span class="node-name">id</span>
+				<p class="split"><span>or</span></p>
+
+				<!-- Preset Selection -->
+				<div class="drop-down lastDropDown">
+					<select id="presetSelector" onChange="loadPreset()">
+						<option value="custom">Select a Preset</option>
+						<option value="Users">Users</option>
+						<option value="News Articles">News Articles</option>
+					</select>
+				</div>
 			</section>
 
 			<!-- Value Wrapper -->
@@ -110,7 +107,7 @@
 
 	<script src="js/jquery.min.js"></script>
 	<script src="js/chance.min.js"></script>
-	<script src="js/dummi.min.js"></script>
+	<script src="js/dummi.js"></script>
 
 </body>
 </html>
