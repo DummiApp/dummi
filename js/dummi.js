@@ -13,14 +13,16 @@ var gender = "both";
 // RESET FEED
 function newFeed(){
 	feedName = "dummi";
+	valuePool = "Users";
 	valueArray = ["fullName"];
 	gender = "both";
 	valueDetailArray = [gender];
-	itemArray = ["0", "1"];
-	valuePool = "Users";
-
+	var userValues = ["firstName", "lastName", "gender", "age", "username", "email", "emailVerified", "phone", "twitterHandle"];
 	document.getElementById("valueTypeSelection").innerHTML = "";
-	$("#valueTypeSelection").append('<option value="firstName">firstName</option><option value="lastName">lastName</option><option value="gender">gender</option><option value="age">age</option><option value="username">username</option><option value="email">email</option><option value="emailVerified">emailVerified</option><option value="phone">phone</option><option value="twitterHandle">twitterHandle</option>');
+	for(var i = 0;i < userValues.length;i+=1){
+		$("#valueTypeSelection").append('<option value="' + userValues[i] + '">' + userValues[i] + '</option>');
+	}
+	itemArray = ["0", "1"];
 
 	document.getElementById("valueWrapper").innerHTML = "";
 	$("#valueWrapper").append('<section class="block"><span class="node-name">fullName</span><input type="checkbox" id="fullName" name="toggles" class="toggle-switch" checked><label class="toggle" for="fullName"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">Gender</span><ul class="radio-list"><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="both" checked><label for="both">Both</label></li><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="male"><label for="male">Male</label></li><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="female"><label for="female">Female</label></li></ul></div></div></section>');
@@ -28,6 +30,7 @@ function newFeed(){
 
 	document.getElementById("valuePoolSelection").value = "Users";
 	document.getElementById("valueTypeSelection").value = "firstName";
+	document.getElementById("presetSelector").value = "custom";
 	document.getElementById("both").checked = true;
 
 	$("#feedName").val("");
@@ -36,6 +39,54 @@ function newFeed(){
 	removeValue("all");
 	generateUniqueURL();
 	updateFeed();
+}
+
+function loadPreset(){
+
+	var selectedValueField = document.getElementById("presetSelector");
+	var presetName = selectedValueField.options[selectedValueField.selectedIndex].value;
+
+	if(presetName == "Small User Set"){
+		newFeed();
+
+		feedName = "dummi Users";
+		valuePool = "Users";
+		valueArray = ["fullName", "firstName", "lastName", "gender", "age", "username", "email", "usPhone"];
+		gender = "both";
+		valueDetailArray = [gender, "none", "none", "none", "adult", "none", "none", "us"];
+		
+		itemArray = [];
+		for(var i = 0;i<20;i+=1){
+			itemArray.push('"' + i + '"');
+		}
+
+		$("#feedName").val(feedName);
+		$("#itemNumber").val(itemArray.length);
+
+		renderValues();
+		updateFeed();
+		document.getElementById("presetSelector").value = presetName;
+	}else if(presetName == "Small News Article Set"){
+		newFeed();
+
+		feedName = "dummi Articles";
+		updateValuePool("Articles");
+		valueArray = ["title", "subTitle", "createdOn", "createdBy", "text", "rating"];
+		gender = "both";
+		valueDetailArray = ["none", "none", "USDate", "usersName", "short", "outOfTen"];
+		
+		itemArray = [];
+		for(var i = 0;i<20;i+=1){
+			itemArray.push('"' + i + '"');
+		}
+
+		$("#feedName").val(feedName);
+		$("#itemNumber").val(itemArray.length);
+
+		renderValues();
+		updateFeed();
+		document.getElementById("presetSelector").value = presetName;
+	}
 }
 
 // CODE GEN FOR LINK
@@ -113,6 +164,8 @@ $('#feedName').focusin('input',function(e){
 		  		feedName = "dummi";
 		    }
 
+		    document.getElementById("presetSelector").value = "custom";
+
 		  	updateFeed();
 
 		},500);
@@ -130,28 +183,41 @@ $('#feedName').focusout('input',function(e){
 });
 
 // UPDATE VALUE POOL
-function updateValuePool(){
+function updateValuePool(directType){
 
-	var selectedValueField = document.getElementById("valuePoolSelection");
-	var type = selectedValueField.options[selectedValueField.selectedIndex].value;
+	var type = "";
 
-	console.log("ikansld");
+	if(directType){
+		type = directType;
+	}else{	
+		var selectedValueField = document.getElementById("valuePoolSelection");
+		type = selectedValueField.options[selectedValueField.selectedIndex].value;
+	}
+	
 
 	valueArray = [];
 	valueDetailArray = [];
 
 	document.getElementById("valueTypeSelection").innerHTML = "";
+	document.getElementById("presetSelector").value = "custom";
+	document.getElementById("valuePoolSelection").value = type;
 
 	switch(type){
 		case "Users":
 			valuePool = "Users";
 			valueArray = ["fullName"];
 			valueDetailArray = [gender];
-			$("#valueTypeSelection").append('<option value="firstName">firstName</option><option value="lastName">lastName</option><option value="gender">gender</option><option value="age">age</option><option value="username">username</option><option value="email">email</option><option value="emailVerified">emailVerified</option><option value="phone">phone</option><option value="twitterHandle">twitterHandle</option>');
+			var userValues = ["firstName", "lastName", "gender", "age", "username", "email", "emailVerified", "phone", "twitterHandle"];
+			for(var i = 0;i < userValues.length;i+=1){
+				$("#valueTypeSelection").append('<option value="' + userValues[i] + '">' + userValues[i] + '</option>');
+			}
 			break;
 		case "Articles":
 			valuePool = "Articles";
-			$("#valueTypeSelection").append('<option value="title">title</option><option value="subTitle">subTitle</option><option value="createdOn">createdOn</option><option value="createdBy">createdBy</option><option value="text">text</option><option value="rating">rating</option>');
+			var articleValues = ["title", "subTitle", "createdOn", "createdBy", "text", "rating"];
+			for(var i = 0;i < articleValues.length;i+=1){
+				$("#valueTypeSelection").append('<option value="' + articleValues[i] + '">' + articleValues[i] + '</option>');
+			}
 			break;
 		default:
 			console.log("an error has occured, please contact @seven11nash on Twitter or via marc@dummi.io to report this bug.");
@@ -163,6 +229,66 @@ function updateValuePool(){
 }
 
 // VALUES
+function renderValues(){
+	document.getElementById("valueWrapper").innerHTML = "";
+	var optionsLabel = "";
+	var optionsArray = [];
+	var detailOptionsArray = [];
+	for(var i = 0;i < valueArray.length;i+=1){
+		if(valueArray[i] == "fullName"){
+
+			$("#valueWrapper").append('<section class="block"><span class="node-name">fullName</span><input type="checkbox" id="fullName" name="toggles" class="toggle-switch" checked><label class="toggle" for="fullName"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">Gender</span><ul class="radio-list"><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="both" checked><label for="both">Both</label></li><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="male"><label for="male">Male</label></li><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="female"><label for="female">Female</label></li></ul></div></div></section>');
+			document.getElementById(gender).checked = true;
+
+		}else{
+
+			if(valueArray[i] == "phone" || valueArray[i] == "usPhone" || valueArray[i] == "ukPhone" || valueArray[i] == "dePhone"){
+				optionsLabel = "Country";
+				optionsArray = ["usPhone", "ukPhone", "dePhone"];
+				detailOptionsArray = ["us", "uk", "de"];
+			}else if(valueArray[i] == "age" || valueArray[i] == "childAge" || valueArray[i] == "teenAge" || valueArray[i] == "seniorAge"){
+				optionsLabel = "Age Boundries";
+				optionsArray = ["childAge", "teenAge", "age", "seniorAge"];
+				detailOptionsArray = ["child", "teen", "adult", "senior"];
+			}else if(valueArray[i] == "createdOn"){
+				optionsLabel = "Date Format";
+				optionsArray = ["mm/dd/yyyy", "dd/mm/yyyy"];
+				detailOptionsArray = ["USDate", "nonUSDate"];
+			}else if(valueArray[i] == "createdBy"){
+				optionsLabel = "Name";
+				optionsArray = ["Username", "Full Name"];
+				detailOptionsArray = ["usersName", "fullName"];
+			}else if(valueArray[i] == "text"){
+				optionsLabel = "Length";
+				optionsArray = ["Short", "Medium", "Long"];
+				detailOptionsArray = ["short", "medium", "long"];
+			}else if(valueArray[i] == "rating"){
+				optionsLabel = "Out of options";
+				optionsArray = ["Out of 5", "Out of 10"];
+				detailOptionsArray = ["outOfFive", "outOfTen"];
+			}
+			if(valueDetailArray[i] != "none"){
+				$("#valueWrapper").append('<section class="block" id="valueBlock' + i +'"><a href="javascript:removeValue(' + i + ')" class="close">✕</a><span class="node-name">' + valueArray[i] + '</span><input type="checkbox" id="' + valueArray[i] + i + '" name="toggles" class="toggle-switch" checked><label class="toggle" for="' + valueArray[i] + i + '"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">' + optionsLabel + '</span><ul class="radio-list" id="radioL' + i + '">');
+
+				$("#valueWrapper").append('</ul></div></div></section>');
+
+				var optionsString = "";
+				for(var j = 0;j < optionsArray.length; j+=1){
+					optionsString = optionsString + '<li><input type="radio" name="' + valueArray[i] + i + '" onclick="updateItemDetail(this.id)" id="' + detailOptionsArray[j] + i + '"><label for="' + detailOptionsArray[j] + i + '">' + optionsArray[j] + '</label></li>';
+				}
+				document.getElementById("radioL" + i).innerHTML = optionsString;
+				document.getElementById(valueDetailArray[i] + i).checked = true;
+			}else{
+				$("#valueWrapper").append('<section class="block" id="valueBlock' + i +'"><a href="javascript:removeValue(' + i + ')" class="close">✕</a><span class="node-name">' + valueArray[i] + '</span></section>');
+			}
+
+		}
+	}
+
+	updateFeed();
+}
+
+// ADD VALUES
 function addValue(){
 
 	var selectedValueField = document.getElementById("valueTypeSelection");
@@ -178,28 +304,26 @@ function addValue(){
 	if(selectedValue == "phone"){
 		valueDetailArray.push("us");
 	}else if(selectedValue == "age"){
-		valueDetailArray.push("ad");
+		valueDetailArray.push("adult");
 	}else if(selectedValue == "createdOn"){
-		valueDetailArray.push("uD");
+		valueDetailArray.push("USDate");
+	}else if(selectedValue == "createdBy"){
+		valueDetailArray.push("usersName");
+	}else if(selectedValue == "text"){
+		valueDetailArray.push("medium");
+	}else if(selectedValue == "rating"){
+		valueDetailArray.push("outOfFive");
 	}else{
 		valueDetailArray.push("none");
 	}
 
-	if(selectedValue == "phone"){
-		$("#valueWrapper").append('<section class="block" id="valueBlock' + id +'"><a href="javascript:removeValue(' + id + ')" class="close">✕</a><span class="node-name">' + selectedValue + '</span><input type="checkbox" id="phoneNumber' + id + '" name="toggles" class="toggle-switch" checked><label class="toggle" for="phoneNumber' + id + '"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">Country</span><ul class="radio-list"><li><input type="radio" name="phone' + id + '" onclick="updateItemDetail(this.id)" id="us' + id + '" checked><label for="us' + id + '">US</label></li><li><input type="radio" name="phone' + id + '" onclick="updateItemDetail(this.id)" id="uk' + id + '"><label for="uk' + id + '">UK</label></li><li><input type="radio" name="phone' + id + '" onclick="updateItemDetail(this.id)" id="de' + id + '"><label for="de' + id + '">DE</label></li></ul></div></div></section>');
-	}else if(selectedValue == "age"){
-		$("#valueWrapper").append('<section class="block" id="valueBlock' + id +'"><a href="javascript:removeValue(' + id + ')" class="close">✕</a><span class="node-name">' + selectedValue + '</span><input type="checkbox" id="age' + id + '" name="toggles" class="toggle-switch" checked><label class="toggle" for="age' + id + '"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">boundries</span><ul class="radio-list"><li><input type="radio" name="age' + id + '" onclick="updateItemDetail(this.id)" id="cd' + id + '"><label for="cd' + id + '">Child</label></li><li><input type="radio" name="age' + id + '" onclick="updateItemDetail(this.id)" id="tn' + id + '"><label for="tn' + id + '">Teenager</label></li><li><input type="radio" name="age' + id + '" onclick="updateItemDetail(this.id)" id="ad' + id + '" checked><label for="ad' + id + '">Adult</label></li><li><input type="radio" name="age' + id + '" onclick="updateItemDetail(this.id)" id="sn' + id + '"><label for="sn' + id + '">Senior</label></li></ul></div></div></section>');
-	}else if(selectedValue == "createdOn"){
-		$("#valueWrapper").append('<section class="block" id="valueBlock' + id +'"><a href="javascript:removeValue(' + id + ')" class="close">✕</a><span class="node-name">' + selectedValue + '</span><input type="checkbox" id="dateType' + id + '" name="toggles" class="toggle-switch" checked><label class="toggle" for="dateType' + id + '"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">Date Type</span><ul class="radio-list"><li><input type="radio" name="dateType' + id + '" onclick="updateItemDetail(this.id)" id="uD' + id + '"><label for="uD' + id + '">mm/dd/yyyy</label></li><li><input type="radio" name="dateType' + id + '" onclick="updateItemDetail(this.id)" id="oD' + id + '"><label for="oD' + id + '">dd/mm/yyyy</label></li></ul></div></div></section>');
-	}else{
-		$("#valueWrapper").append('<section class="block" id="valueBlock' + id +'"><a href="javascript:removeValue(' + id + ')" class="close">✕</a><span class="node-name">' + selectedValue + '</span></section>');
-	}
+	document.getElementById("presetSelector").value = "custom";
 
-	console.log(valueDetailArray);
-	removeValue("none");
+	renderValues();
 	updateFeed();
 }
 
+// REMOVE VALUES
 function removeValue(id){
 	if(id == "all"){
 		document.getElementById("valueWrapper").innerHTML = "";
@@ -217,39 +341,10 @@ function removeValue(id){
 			valueArray.splice(id, 1);
 			valueDetailArray.splice(id, 1);
 		}
-		document.getElementById("valueWrapper").innerHTML = "";
-		for(var i = 0;i < valueArray.length;i+=1){
-			if(valueArray[i] == "fullName"){
-				$("#valueWrapper").append('<section class="block"><span class="node-name">fullName</span><input type="checkbox" id="fullName" name="toggles" class="toggle-switch" checked><label class="toggle" for="fullName"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">Gender</span><ul class="radio-list"><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="both" checked><label for="both">Both</label></li><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="male"><label for="male">Male</label></li><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="female"><label for="female">Female</label></li></ul></div></div></section>');
-				document.getElementById(gender).checked = true;
-			}else if(valueArray[i] == "phone" || valueArray[i] == "usPhone" || valueArray[i] == "ukPhone" || valueArray[i] == "dePhone"){
-				$("#valueWrapper").append('<section class="block" id="valueBlock' + i +'"><a href="javascript:removeValue(' + i + ')" class="close">✕</a><span class="node-name">' + valueArray[i] + '</span><input type="checkbox" id="phoneNumber' + i + '" name="toggles" class="toggle-switch" checked><label class="toggle" for="phoneNumber' + i + '"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">Country</span><ul class="radio-list"><li><input type="radio" name="phone' + i + '" onclick="updateItemDetail(this.id)" id="us' + i + '" checked><label for="us' + i + '">US</label></li><li><input type="radio" name="phone' + i + '" onclick="updateItemDetail(this.id)" id="uk' + i + '"><label for="uk' + i + '">UK</label></li><li><input type="radio" name="phone' + i + '" onclick="updateItemDetail(this.id)" id="de' + i + '"><label for="de' + i + '">DE</label></li></ul></div></div></section>');
-				document.getElementById(valueDetailArray[i] + i).checked = true;
-			}else if(valueArray[i] == "age" || valueArray[i] == "cdAge" || valueArray[i] == "tnAge" || valueArray[i] == "snAge"){
-				var blockTitle = "";
-				switch(valueArray[i]){
-					case "cdAge":
-						blockTitle = "childAge";
-						break;
-					case "tnAge":
-						blockTitle = "teenAge";
-						break;
-					case "snAge":
-						blockTitle = "seniorAge";
-						break;
-					default:
-						blockTitle = "age";
-				}
-				$("#valueWrapper").append('<section class="block" id="valueBlock' + i +'"><a href="javascript:removeValue(' + i + ')" class="close">✕</a><span class="node-name">' + blockTitle + '</span><input type="checkbox" id="age' + i + '" name="toggles" class="toggle-switch" checked><label class="toggle" for="age' + i + '"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">boundries</span><ul class="radio-list"><li><input type="radio" name="age' + i + '" onclick="updateItemDetail(this.id)" id="cd' + i + '"><label for="cd' + i + '">Child</label></li><li><input type="radio" name="age' + i + '" onclick="updateItemDetail(this.id)" id="tn' + i + '"><label for="tn' + i + '">Teenager</label></li><li><input type="radio" name="age' + i + '" onclick="updateItemDetail(this.id)" id="ad' + i + '" checked><label for="ad' + i + '">Adult</label></li><li><input type="radio" name="age' + i + '" onclick="updateItemDetail(this.id)" id="sn' + i + '"><label for="sn' + i + '">Senior</label></li></ul></div></div></section>');
-				document.getElementById(valueDetailArray[i] + i).checked = true;
-			}else if(valueArray[i] == "createdOn"){
-				$("#valueWrapper").append('<section class="block" id="valueBlock' + id +'"><a href="javascript:removeValue(' + i + ')" class="close">✕</a><span class="node-name">' + valueArray[i] + '</span><input type="checkbox" id="dateType' + i + '" name="toggles" class="toggle-switch" checked><label class="toggle" for="dateType' + i + '"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">Date Type</span><ul class="radio-list"><li><input type="radio" name="dateType' + i + '" onclick="updateItemDetail(this.id)" id="uD' + i + '"><label for="uD' + i + '">mm/dd/yyyy</label></li><li><input type="radio" name="dateType' + i + '" onclick="updateItemDetail(this.id)" id="oD' + i + '"><label for="oD' + i + '">dd/mm/yyyy</label></li></ul></div></div></section>');
-				document.getElementById(valueDetailArray[i] + i).checked = true;
-			}else{
-				$("#valueWrapper").append('<section class="block" id="valueBlock' + i +'"><a href="javascript:removeValue(' + i + ')" class="close">✕</a><span class="node-name">' + valueArray[i] + '</span></section>');
-			}
-		}
+		renderValues();
 	}
+
+	document.getElementById("presetSelector").value = "custom";
 
 	updateFeed();
 }
@@ -267,15 +362,21 @@ function updateItemDetail(id){
 			gender = "female";
 			break;
 		default:
-			var detail = id.substring(0,2);
-			var itemId = id.substr(2);
+			var detail = id.replace(/[^A-Za-z\s!?]/g,'');
+			var itemId = id.replace(/[^0-9\s!?]/g,'');
 			valueDetailArray[itemId] = detail;
 			if(detail == "us" || detail == "uk" || detail == "de"){
 				valueArray[itemId] = detail + "Phone";
-			}else if(detail == "cd" || detail == "tn" || detail == "sn"){
-				valueArray[itemId] = detail + "Age";
+			}else if(detail == "adult" || detail == "child" || detail == "teen" || detail == "senior"){
+				if(detail != "adult"){
+					valueArray[itemId] = detail + "Age";
+				}else{
+					valueArray[itemId] = "age";
+				}
 			}
 	}
+
+	document.getElementById("presetSelector").value = "custom";
 
 	removeValue("none");
 	updateFeed();
@@ -306,6 +407,8 @@ $('#itemNumber').focusin('input',function(e){
 		    }else{
 		  		
 		    }
+
+		    document.getElementById("presetSelector").value = "custom";
 
 		  	updateFeed();
 
@@ -413,6 +516,15 @@ function updateFeed(){
     	var randomOption = chance.integer({min: 1, max: dePhoneOptions.length-1});
     	var dePhone = dePhoneOptions[randomOption] + "&nbsp;" + chance.integer({min: 1000000, max: 9999999});
 
+    	var rndYear = chance.integer({min: 2000, max: 2016});
+    	var rndMonth = chance.integer({min: 1, max: 12});
+    	var rndDay = chance.integer({min: 1, max: 30});
+    	if(rndMonth == 2){
+    		rndDay = chance.integer({min: 1, max: 28});
+    	}
+    	var usCreatedOn = rndMonth + "/" + rndDay + "/" + rndYear;
+    	var nonUsCreatedOn = rndDay + "/" + rndMonth + "/" + rndYear;
+
     	var rating = chance.floating({min: 0, max: 5, fixed: 1});
 
     	// ADD ID TO ALL FILES
@@ -455,11 +567,11 @@ function updateFeed(){
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>gender</span>": "' + itemGender + '"';
 					finalCSV = finalCSV + itemGender;
 					break;
-				case "cdAge":
+				case "childAge":
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>childAge</span>": ' + childAge;
 		    		finalCSV = finalCSV + childAge;
 					break;
-				case "tnAge":
+				case "teenAge":
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>teenAge</span>": ' + teenAge;
 		    		finalCSV = finalCSV + teenAge;
 					break;
@@ -467,7 +579,7 @@ function updateFeed(){
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>age</span>": ' + age;
 		    		finalCSV = finalCSV + age;
 					break;
-				case "snAge":
+				case "seniorAge":
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>seniorAge</span>": ' + seniorAge;
 		    		finalCSV = finalCSV + seniorAge;
 					break;
@@ -511,26 +623,42 @@ function updateFeed(){
 	    			finalCSV = finalCSV + subTitle;
 					break;
 				case "createdOn":
-					var rndYear = chance.integer({min: 1980, max: 2016});
-					var createdOn = chance.date({string: true, year: rndYear});
-					if(valueDetailArray[j] == "oD"){
-						createdOn = chance.date({string: true, year: rndYear, american: false});
+					var createdOn = nonUsCreatedOn;
+					if(valueDetailArray[j] == "nonUSDate"){
+						createdOn = usCreatedOn;
 					}
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>createdOn</span>": "' + createdOn + '"';
 	    			finalCSV = finalCSV + createdOn;
 					break;
 				case "createdBy":
-					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>createdBy</span>": "@' + username + '"';
-	    			finalCSV = finalCSV + "@" + username;
+					var usersName = username;
+					if(valueDetailArray[j] == "fullName"){
+						usersName = fullName;
+					}else{
+						usersName = "@" + usersName;
+					}
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>createdBy</span>": "' + usersName + '"';
+	    			finalCSV = finalCSV + usersName;
 					break;
 				case "text":
-					var text = "Lorem ipsum dolor sit amet, clita tritani maiestatis pro ea, sea prima aeque ut. Mei modus timeam erroribus ne, stet vero per ea, eu dolorum eleifend omittantur eos. At cum laudem petentium, at ullum theophrastus usu. Eum error denique mediocritatem an.";
+					var text = "";
+					if(valueDetailArray[j] == "short"){
+						text = "Lorem ipsum dolor sit amet. Mei modus timeam erroribus ne, stet vero per ea, eu dolorum eleifend omittantur eos. At cum laudem petentium, at ullum theophrastus usu. Eum error denique mediocritatem an.";
+					}else if(valueDetailArray[j] == "long"){
+						text = "Lorem ipsum dolor sit amet. Mei modus timeam erroribus ne, stet vero per ea, eu dolorum eleifend omittantur eos. At cum laudem petentium, at ullum theophrastus usu. Eum error denique mediocritatem an. Lorem ipsum dolor sit amet, clita tritani maiestatis pro ea, sea prima aeque ut. Mei modus timeam erroribus ne, stet vero per ea, eu dolorum eleifend omittantur eos. At cum laudem petentium, at ullum theophrastus usu. Eum error denique mediocritatem an. Lorem ipsum dolor sit amet. Mei modus timeam erroribus ne, stet vero per ea, eu dolorum eleifend omittantur eos. At cum laudem petentium, at ullum theophrastus usu. Eum error denique mediocritatem an. Lorem ipsum dolor sit amet, clita tritani maiestatis pro ea, sea prima aeque ut. Mei modus timeam erroribus ne, stet vero per ea, eu dolorum eleifend omittantur eos. At cum laudem petentium, at ullum theophrastus usu. Eum error denique mediocritatem an.";
+					}else{
+						text = "Lorem ipsum dolor sit amet. Mei modus timeam erroribus ne, stet vero per ea, eu dolorum eleifend omittantur eos. At cum laudem petentium, at ullum theophrastus usu. Eum error denique mediocritatem an. Lorem ipsum dolor sit amet, clita tritani maiestatis pro ea, sea prima aeque ut. Mei modus timeam erroribus ne, stet vero per ea, eu dolorum eleifend omittantur eos. At cum laudem petentium, at ullum theophrastus usu. Eum error denique mediocritatem an.";
+					}
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>text</span>": "' + text + '"';
 	    			finalCSV = finalCSV + text;
 					break;
 				case "rating":
-					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>rating</span>": ' + rating;
-	    			finalCSV = finalCSV + rating;
+					var tempRating = rating;
+					if(valueDetailArray[j] == "outOfTen"){
+						tempRating = tempRating * 2;
+					}
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>rating</span>": ' + tempRating;
+	    			finalCSV = finalCSV + tempRating;
 					break;
 				default:
 					console.log("an error has occured, please contact @seven11nash on Twitter or via marc@dummi.io to report this bug.");

@@ -36,8 +36,18 @@
 			<label for="feedName" class="eyebrow" id="feedNameLabel">Primary Keyword Name</label>
 			<input type="text" id="feedName" placeholder="Name Your Primary Keyword">
 
+			<!-- PRESET SELECTION -->
+			<label for="presetSelection" class="eyebrow">Preset</label>
+			<div class="drop-down">
+				<select id="presetSelector" onChange="loadPreset()">
+					<option value="custom">Custom</option>
+					<option value="Small User Set">Small User Set</option>
+					<option value="Small News Article Set">Small News Article Set</option>
+				</select>
+			</div>
+
 			<!-- # of items -->
-			<section class="block">
+			<section class="block" style="margin-top: -15px;">
 				<label for="itemNumber" class="eyebrow" id="itemNumberLabel"># of items</label>
 				<input type="text" id="itemNumber" class="number" value="2">
 			</section>
@@ -47,21 +57,13 @@
 				<div class="drop-down">
 					<select id="valuePoolSelection" onChange="updateValuePool()">
 						<option value="Users">Users</option>
-						<option value="Articles">Articles</option>
+						<option value="Articles">News Articles</option>
 					</select>
 				</div>
 				<label for="type" class="eyebrow" id="valueTypeLabel">Value Type</label>
 				<div class="drop-down">
 					<select id="valueTypeSelection">
-						<option value="firstName">firstName</option>
-						<option value="lastName">lastName</option>
-						<option value="gender">gender</option>
-						<option value="age">age</option>
-						<option value="username">username</option>
-						<option value="email">email</option>
-						<option value="emailVerified">emailVerified</option>
-						<option value="phone">phone</option>
-						<option value="twitterHandle">twitterHandle</option>
+					<!-- GENERATED IN JS -->
 					</select>
 				</div>
 				<a href="javascript:addValue()" class="btn btn-add" style="margin: 0px;">Add Value</a>
@@ -108,7 +110,7 @@
 
 	<script src="js/jquery.min.js"></script>
 	<script src="js/chance.min.js"></script>
-	<script src="js/dummi.min.js"></script>
+	<script src="js/dummi.js"></script>
 
 </body>
 </html>
