@@ -11,8 +11,12 @@ var valuePool = "Users";
 var gender = "both";
 
 // RESET FEED
-function newFeed(){
-	feedName = "dummi";
+function newFeed(optional){
+	if(optional != "noSwitchToCustom"){
+		itemArray = ["0", "1"];
+		feedName = "dummi";
+		$("#feedName").val("");
+	}
 	valuePool = "Users";
 	valueArray = ["fullName"];
 	gender = "both";
@@ -22,7 +26,7 @@ function newFeed(){
 	for(var i = 0;i < userValues.length;i+=1){
 		$("#valueTypeSelection").append('<option value="' + userValues[i] + '">' + userValues[i] + '</option>');
 	}
-	itemArray = ["0", "1"];
+	
 
 	document.getElementById("valueWrapper").innerHTML = "";
 	$("#valueWrapper").append('<section class="block"><span class="node-name">fullName</span><input type="checkbox" id="fullName" name="toggles" class="toggle-switch" checked><label class="toggle" for="fullName"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">Gender</span><ul class="radio-list"><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="both" checked><label for="both">Both</label></li><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="male"><label for="male">Male</label></li><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="female"><label for="female">Female</label></li></ul></div></div></section>');
@@ -33,7 +37,6 @@ function newFeed(){
 	document.getElementById("presetSelector").value = "custom";
 	document.getElementById("both").checked = true;
 
-	$("#feedName").val("");
 	$("#itemNumber").val(itemArray.length);
 
 	removeValue("all");
@@ -47,7 +50,7 @@ function loadPreset(){
 	var presetName = selectedValueField.options[selectedValueField.selectedIndex].value;
 
 	if(presetName == "Users"){
-		newFeed();
+		newFeed("noSwitchToCustom");
 
 		valuePool = "Users";
 		valueArray = ["fullName", "firstName", "lastName", "gender", "age", "username", "email", "usPhone"];
@@ -58,12 +61,21 @@ function loadPreset(){
 		updateFeed();
 		document.getElementById("presetSelector").value = presetName;
 	}else if(presetName == "News Articles"){
-		newFeed();
+		newFeed("noSwitchToCustom");
 
 		updateValuePool("Articles");
-		valueArray = ["title", "subTitle", "createdOn", "createdBy", "text", "rating"];
-		gender = "both";
-		valueDetailArray = ["none", "none", "USDate", "usersName", "short", "outOfTen"];
+		valueArray = ["title", "subTitle", "author", "createdOn", "fullArticle", "rating"];
+		valueDetailArray = ["none", "none", "usersName", "USDate", "none", "outOfTen"];
+
+		renderValues();
+		updateFeed();
+		document.getElementById("presetSelector").value = presetName;
+	}else if(presetName == "Movies"){
+		newFeed("noSwitchToCustom");
+
+		updateValuePool("Movies");
+		valueArray = ["title", "description", "MPPArating", "runtime", "startTimes", "rating"];
+		valueDetailArray = ["none", "none", "none", "none", "anyTime", "outOfTen"];
 
 		renderValues();
 		updateFeed();
@@ -85,8 +97,19 @@ function generateUniqueURL(){
 
 // CAPITALIZE DUMMI
 String.prototype.capitalize = function() {
-    return this.charAt(0).toUpperCase() + this.slice(1);
+    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }
+
+// REPALCE AT
+String.prototype.replaceAt=function(index, character) {
+    return this.substr(0, index) + character + this.substr(index+character.length);
+}
+
+// REPLACE ALL
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};
 
 // CAMELCASE DUMMI
 String.prototype.camelCase = function(value) {
@@ -146,8 +169,6 @@ $('#feedName').focusin('input',function(e){
 		  		feedName = "dummi";
 		    }
 
-		    document.getElementById("presetSelector").value = "custom";
-
 		  	updateFeed();
 
 		},500);
@@ -176,7 +197,6 @@ function updateValuePool(directType){
 		type = selectedValueField.options[selectedValueField.selectedIndex].value;
 	}
 	
-
 	valueArray = [];
 	valueDetailArray = [];
 
@@ -196,9 +216,16 @@ function updateValuePool(directType){
 			break;
 		case "Articles":
 			valuePool = "Articles";
-			var articleValues = ["title", "subTitle", "createdOn", "createdBy", "text", "rating"];
+			var articleValues = ["title", "subTitle", "createdOn", "author", "snippet", "fullArticle", "rating"];
 			for(var i = 0;i < articleValues.length;i+=1){
 				$("#valueTypeSelection").append('<option value="' + articleValues[i] + '">' + articleValues[i] + '</option>');
+			}
+			break;
+		case "Movies":
+			valuePool = "Articles";
+			var movieValues = ["title", "description", "MPPArating", "runtime", "startTimes", "rating"];;
+			for(var i = 0;i < movieValues.length;i+=1){
+				$("#valueTypeSelection").append('<option value="' + movieValues[i] + '">' + movieValues[i] + '</option>');
 			}
 			break;
 		default:
@@ -236,18 +263,18 @@ function renderValues(){
 				optionsLabel = "Date Format";
 				optionsArray = ["mm/dd/yyyy", "dd/mm/yyyy"];
 				detailOptionsArray = ["USDate", "nonUSDate"];
-			}else if(valueArray[i] == "createdBy"){
+			}else if(valueArray[i] == "author"){
 				optionsLabel = "Name";
 				optionsArray = ["Username", "Full Name"];
 				detailOptionsArray = ["usersName", "fullName"];
-			}else if(valueArray[i] == "text"){
-				optionsLabel = "Length";
-				optionsArray = ["Short", "Medium", "Long"];
-				detailOptionsArray = ["short", "medium", "long"];
 			}else if(valueArray[i] == "rating"){
 				optionsLabel = "Out of options";
 				optionsArray = ["Out of 5", "Out of 10"];
 				detailOptionsArray = ["outOfFive", "outOfTen"];
+			}else if(valueArray[i] == "startTimes" || valueArray[i] == "eveningStartTimes" || valueArray[i] == "middayStartTimes"){
+				optionsLabel = "Time of Day";
+				optionsArray = ["Any Time", "Evening", "Midday"];
+				detailOptionsArray = ["anyTime", "evening", "midday"];
 			}
 			if(valueDetailArray[i] != "none"){
 				$("#valueWrapper").append('<section class="block" id="valueBlock' + i +'"><a href="javascript:removeValue(' + i + ')" class="close">✕</a><span class="node-name">' + valueArray[i] + '</span><input type="checkbox" id="' + valueArray[i] + i + '" name="toggles" class="toggle-switch" checked><label class="toggle" for="' + valueArray[i] + i + '"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">' + optionsLabel + '</span><ul class="radio-list" id="radioL' + i + '">');
@@ -289,12 +316,12 @@ function addValue(){
 		valueDetailArray.push("adult");
 	}else if(selectedValue == "createdOn"){
 		valueDetailArray.push("USDate");
-	}else if(selectedValue == "createdBy"){
+	}else if(selectedValue == "author"){
 		valueDetailArray.push("usersName");
-	}else if(selectedValue == "text"){
-		valueDetailArray.push("medium");
 	}else if(selectedValue == "rating"){
 		valueDetailArray.push("outOfFive");
+	}else if(selectedValue == "startTimes"){
+		valueDetailArray.push("anyTime");
 	}else{
 		valueDetailArray.push("none");
 	}
@@ -355,6 +382,12 @@ function updateItemDetail(id){
 				}else{
 					valueArray[itemId] = "age";
 				}
+			}else if(detail == "anyTime" || detail == "evening" || detail == "midday"){
+				if(detail != "anyTime"){
+					valueArray[itemId] = detail + "StartTimes";
+				}else{
+					valueArray[itemId] = "startTimes";
+				}
 			}
 	}
 
@@ -389,8 +422,6 @@ $('#itemNumber').focusin('input',function(e){
 		    }else{
 		  		
 		    }
-
-		    document.getElementById("presetSelector").value = "custom";
 
 		  	updateFeed();
 
@@ -504,7 +535,29 @@ function updateFeed(){
     	var usCreatedOn = rndMonth + "/" + rndDay + "/" + rndYear;
     	var nonUsCreatedOn = rndDay + "/" + rndMonth + "/" + rndYear;
 
+    	var title = HolderIpsum.words(chance.integer({min: 1, max: 5}), true);
+		title = title.capitalize();
+
     	var rating = chance.floating({min: 0, max: 5, fixed: 1});
+
+    	var description = HolderIpsum.words(chance.integer({min: 6, max: 24}), true);
+		description = description.charAt(0).toUpperCase() + description.slice(1) + ".";
+
+		var ratingOptions = ["UR", "G", "PG", "PG-13", "R", "NC-17"];
+    	var randomRatingOptions = chance.integer({min: 1, max: ratingOptions.length-1});
+    	var MPPArating = ratingOptions[randomRatingOptions];
+
+    	var randomMinute = ["00", "15", "20", "30", "40", "45", "50"];
+		var randomTimes = []; 
+		var randomEveningTimes = []; 
+		var randomMiddayTimes = []; 
+		for(var k = 0;k<3;k+=1){
+			randomTimes.push(chance.integer({min: 1, max: 11}) + ":" + randomMinute[chance.integer({min: 1, max: randomMinute.length-1})] + "pm");
+			randomEveningTimes.push(chance.integer({min: 6, max: 11}) + ":" + randomMinute[chance.integer({min: 1, max: randomMinute.length-1})] + "pm");
+			randomMiddayTimes.push(chance.integer({min: 1, max: 5}) + ":" + randomMinute[chance.integer({min: 1, max: randomMinute.length-1})] + "pm");
+		}
+
+    	var runtime = chance.integer({min: 70, max: 200}) + "min";
 
     	// ADD ID TO ALL FILES
     	finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>id</span>": ' + i;
@@ -592,14 +645,24 @@ function updateFeed(){
 	    			finalCSV = finalCSV + dePhone;
 					break;
 				case "title":
-					var title = "Dummi.io";
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>title</span>": "' + title + '"';
 	    			finalCSV = finalCSV + title;
 					break;
 				case "subTitle":
-					var subTitle = "Generating data at its best";
+					var subTitle = HolderIpsum.words(chance.integer({min: 5, max: 12}), true);
+					subTitle = subTitle.charAt(0).toUpperCase() + subTitle.slice(1);
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>subTitle</span>": "' + subTitle + '"';
 	    			finalCSV = finalCSV + subTitle;
+					break;
+				case "author":
+					var usersName = username;
+					if(valueDetailArray[j] == "fullName"){
+						usersName = fullName;
+					}else{
+						usersName = "@" + usersName;
+					}
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>author</span>": "' + usersName + '"';
+	    			finalCSV = finalCSV + usersName;
 					break;
 				case "createdOn":
 					var createdOn = nonUsCreatedOn;
@@ -609,27 +672,38 @@ function updateFeed(){
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>createdOn</span>": "' + createdOn + '"';
 	    			finalCSV = finalCSV + createdOn;
 					break;
-				case "createdBy":
-					var usersName = username;
-					if(valueDetailArray[j] == "fullName"){
-						usersName = fullName;
-					}else{
-						usersName = "@" + usersName;
+				case "snippet":
+					var text = HolderIpsum.words(chance.integer({min: 110, max: 150}), true);
+					for(var k = chance.integer({min: 60, max: 80});k < text.length;k+=chance.integer({min: 32, max: 100})){
+						text = text.replaceAt(k, ". ");
 					}
-					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>createdBy</span>": "' + usersName + '"';
-	    			finalCSV = finalCSV + usersName;
-					break;
-				case "text":
-					var text = "";
-					if(valueDetailArray[j] == "short"){
-						text = "Lorem ipsum dolor sit amet. Mei modus timeam erroribus ne, stet vero per ea, eu dolorum eleifend omittantur eos. At cum laudem petentium, at ullum theophrastus usu. Eum error denique mediocritatem an.";
-					}else if(valueDetailArray[j] == "long"){
-						text = "Lorem ipsum dolor sit amet. Mei modus timeam erroribus ne, stet vero per ea, eu dolorum eleifend omittantur eos. At cum laudem petentium, at ullum theophrastus usu. Eum error denique mediocritatem an. Lorem ipsum dolor sit amet, clita tritani maiestatis pro ea, sea prima aeque ut. Mei modus timeam erroribus ne, stet vero per ea, eu dolorum eleifend omittantur eos. At cum laudem petentium, at ullum theophrastus usu. Eum error denique mediocritatem an. Lorem ipsum dolor sit amet. Mei modus timeam erroribus ne, stet vero per ea, eu dolorum eleifend omittantur eos. At cum laudem petentium, at ullum theophrastus usu. Eum error denique mediocritatem an. Lorem ipsum dolor sit amet, clita tritani maiestatis pro ea, sea prima aeque ut. Mei modus timeam erroribus ne, stet vero per ea, eu dolorum eleifend omittantur eos. At cum laudem petentium, at ullum theophrastus usu. Eum error denique mediocritatem an.";
-					}else{
-						text = "Lorem ipsum dolor sit amet. Mei modus timeam erroribus ne, stet vero per ea, eu dolorum eleifend omittantur eos. At cum laudem petentium, at ullum theophrastus usu. Eum error denique mediocritatem an. Lorem ipsum dolor sit amet, clita tritani maiestatis pro ea, sea prima aeque ut. Mei modus timeam erroribus ne, stet vero per ea, eu dolorum eleifend omittantur eos. At cum laudem petentium, at ullum theophrastus usu. Eum error denique mediocritatem an.";
+					text = text.replaceAll(" . ", ". ");
+					var textArray = text.split(". ");
+					for(var k = 0;k<textArray.length;k+=1){
+						textArray[k] = textArray[k].capitalize();
+						textArray[k] = textArray[k].replace(/\./g,'')
 					}
-					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>text</span>": "' + text + '"';
+					text = textArray.join(". ");
+					text = text + ".";
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>snippet</span>": "' + text + '"';
 	    			finalCSV = finalCSV + text;
+					break;
+				case "fullArticle":
+					var p1 = HolderIpsum.words(chance.integer({min: 100, max: 150}), true) + HolderIpsum.words(chance.integer({min: 100, max: 150}), true);
+					for(var k = chance.integer({min: 60, max: 80});k < p1.length;k+=chance.integer({min: 32, max: 100})){
+						p1 = p1.replaceAt(k, ". ");
+					}
+					p1 = p1.replaceAll(" . ", ". ");
+					var pArray = p1.split(". ");
+					for(var k = 0;k<pArray.length;k+=1){
+						pArray[k] = pArray[k].capitalize();
+						pArray[k] = pArray[k].replace(/\./g,'')
+					}
+					p1 = pArray.join(". ");
+					p1 = p1 + ".";
+					var fullArticle = p1;
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>fullArticle</span>": "' + fullArticle + '"';
+	    			finalCSV = finalCSV + fullArticle;
 					break;
 				case "rating":
 					var tempRating = rating;
@@ -638,6 +712,75 @@ function updateFeed(){
 					}
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>rating</span>": ' + tempRating;
 	    			finalCSV = finalCSV + tempRating;
+					break;
+				case "description":
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>description</span>": "' + description + '"';
+					finalCSV = finalCSV + description;
+					break;
+				case "MPPArating":
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>MPPArating</span>": "' + MPPArating + '"';
+					finalCSV = finalCSV + MPPArating;
+					break;
+				case "runtime":
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>runtime</span>": "' + runtime + '"';
+					finalCSV = finalCSV + runtime;
+					break;
+				case "startTimes":
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>startTimes</span>": {<br>';
+					for(var k = 0;k<randomTimes.length;k+=1){
+						if(k == randomTimes.length-1){
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>": "' + randomTimes[k] + '"<br>';
+						}else{
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>": "' + randomTimes[k] + '",<br>';
+						}
+					}
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}';
+					finalCSV = finalCSV + '"';
+					for(var k = 0;k<randomTimes.length;k+=1){
+						if(k == randomTimes.length-1){
+							finalCSV = finalCSV + randomTimes[k] + '"';
+						}else{
+							finalCSV = finalCSV + randomTimes[k] + ',';
+						}
+					}
+					break;
+				case "eveningStartTimes":
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>eveningStartTimes</span>": {<br>';
+					for(var k = 0;k<randomTimes.length;k+=1){
+						if(k == randomEveningTimes.length-1){
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>": "' + randomEveningTimes[k] + '"<br>';
+						}else{
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>": "' + randomEveningTimes[k] + '",<br>';
+						}
+					}
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}';
+					finalCSV = finalCSV + '"';
+					for(var k = 0;k<randomTimes.length;k+=1){
+						if(k == randomTimes.length-1){
+							finalCSV = finalCSV + randomTimes[k] + '"';
+						}else{
+							finalCSV = finalCSV + randomTimes[k] + ',';
+						}
+					}
+					break;
+				case "middayStartTimes":
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>middayStartTimes</span>": {<br>';
+					for(var k = 0;k<randomTimes.length;k+=1){
+						if(k == randomMiddayTimes.length-1){
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>": "' + randomMiddayTimes[k] + '"<br>';
+						}else{
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>": "' + randomMiddayTimes[k] + '",<br>';
+						}
+					}
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}';
+					finalCSV = finalCSV + '"';
+					for(var k = 0;k<randomTimes.length;k+=1){
+						if(k == randomTimes.length-1){
+							finalCSV = finalCSV + randomTimes[k] + '"';
+						}else{
+							finalCSV = finalCSV + randomTimes[k] + ',';
+						}
+					}
 					break;
 				default:
 					console.log("an error has occured, please contact @seven11nash on Twitter or via marc@dummi.io to report this bug.");
