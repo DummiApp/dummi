@@ -1,0 +1,68 @@
+<!-- Side Bar -->
+<aside class="side-bar">
+	<!-- Logo -->
+	<h1 class="logo"><img src="/assets/img/logo.svg" alt="Dummi - Data for your project"></h1>
+
+	<!-- OUTPUT TYPE -->
+	<label for="outputType" class="eyebrow">Output Type</label>
+	<div class="drop-down">
+		<select id="outputTypeSelection" onChange="updateOutput()">
+			<option value="JSON">JSON</option>
+			<option value="CSV">CSV</option>
+		</select>
+	</div>
+
+	<!-- Feed Name -->
+	<label for="feedName" class="eyebrow" id="feedNameLabel">Primary Keyword Name</label>
+	<input type="text" id="feedName" placeholder="Name Your Primary Keyword">
+
+	<!-- # of items -->
+	<section class="block">
+		<label for="itemNumber" class="eyebrow" id="itemNumberLabel"># of items</label>
+		<input type="text" id="itemNumber" class="number" value="2">
+	</section>
+	
+	<!-- Value Pool Selection -->
+	<section class="block">
+		<label for="type" class="eyebrow" id="valuePoolLabel">Value Pool</label>
+		<div class="drop-down">
+			<select id="valuePoolSelection" onChange="updateValuePool()">
+				<option value="Users">Users</option>
+				<option value="Articles">News Articles</option>
+				<option value="Movies">Movies</option>
+			</select>
+		</div>
+		<label for="type" class="eyebrow" id="valueTypeLabel">Value Type</label>
+		<div class="drop-down">
+			<select id="valueTypeSelection">
+			<!-- GENERATED IN JS -->
+			</select>
+		</div>
+		<a href="javascript:addValue()" class="btn btn-add" style="margin: 0px;">Add Value</a>
+
+		<p class="split"><span>or</span></p>
+
+		<!-- Preset Selection -->
+		<div class="drop-down lastDropDown">
+			<select id="presetSelector" onChange="loadPreset()">
+				<option value="custom">Select a Preset</option>
+				<option value="Users">Users</option>
+				<option value="News Articles">News Articles</option>
+				<option value="Movies">Movies</option>
+			</select>
+		</div>
+	</section>
+
+	<!-- Value Wrapper -->
+	<div id="valueWrapper">
+
+		<!-- Block Example -->
+		<!-- <section class="block">
+			<a href="#" class="close">✕</a><span class="node-name">firstName</span>
+		</section> -->
+
+		<!-- EVERYTHING IN HERE WILL BE GENERATED -->
+
+	</div>
+
+</aside>

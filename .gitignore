@@ -1,3 +1,9 @@
+### Codekit ###
 *.codekit
 *.codekit-cache
 *-min.js
+
+### Jekyll ###
+_site/
+.sass-cache/
+.jekyll-metadata

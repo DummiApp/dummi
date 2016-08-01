@@ -1,113 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Dummi</title>
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="icon" type="image/png" href="img/favicon.png">
-	<!-- Google Analytics -->
-	<script>
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+---
+layout: default
+---
+<!--  Side Bar -->
+{% include sidebar.html %}
 
-		ga('create', 'UA-81716314-1', 'auto');
-		ga('send', 'pageview');
-	</script>
-</head>
-<body>
-	<div id="wrapper">
-		<!-- Side Bar -->
-		<aside class="side-bar">
-			<!-- Logo -->
-			<h1 class="logo"><img src="img/logo.svg" alt="Dummi - Data for your project"></h1>
+<!-- Stage -->
+{% include stage.html %}
 
-			<!-- OUTPUT TYPE -->
-			<label for="outputType" class="eyebrow">Output Type</label>
-			<div class="drop-down">
-				<select id="outputTypeSelection" onChange="updateOutput()">
-					<option value="JSON">JSON</option>
-					<option value="CSV">CSV</option>
-				</select>
-			</div>
 
-			<!-- Feed Name -->
-			<label for="feedName" class="eyebrow" id="feedNameLabel">Primary Keyword Name</label>
-			<input type="text" id="feedName" placeholder="Name Your Primary Keyword">
 
-			<!-- # of items -->
-			<section class="block">
-				<label for="itemNumber" class="eyebrow" id="itemNumberLabel"># of items</label>
-				<input type="text" id="itemNumber" class="number" value="2">
-			</section>
-			
-			<!-- Value Pool Selection -->
-			<section class="block">
-				<label for="type" class="eyebrow" id="valuePoolLabel">Value Pool</label>
-				<div class="drop-down">
-					<select id="valuePoolSelection" onChange="updateValuePool()">
-						<option value="Users">Users</option>
-						<option value="Articles">News Articles</option>
-					</select>
-				</div>
-				<label for="type" class="eyebrow" id="valueTypeLabel">Value Type</label>
-				<div class="drop-down">
-					<select id="valueTypeSelection">
-					<!-- GENERATED IN JS -->
-					</select>
-				</div>
-				<a href="javascript:addValue()" class="btn btn-add" style="margin: 0px;">Add Value</a>
 
-				<p class="split"><span>or</span></p>
-
-				<!-- Preset Selection -->
-				<div class="drop-down lastDropDown">
-					<select id="presetSelector" onChange="loadPreset()">
-						<option value="custom">Select a Preset</option>
-						<option value="Users">Users</option>
-						<option value="News Articles">News Articles</option>
-					</select>
-				</div>
-			</section>
-
-			<!-- Value Wrapper -->
-			<div id="valueWrapper">
-
-				<!-- Block Example -->
-				<!-- <section class="block">
-					<a href="#" class="close">✕</a><span class="node-name">firstName</span>
-				</section> -->
-
-				<!-- EVERYTHING IN HERE WILL BE GENERATED -->
-
-			</div>
-	
-		</aside>
-
-		<!-- Main Stage -->
-		<main>
-			<div class="utility-bar">
-				<div  class="feed-type" id="feedTypeTitle">JSON</div>
-				<nav>
-					<a href="javascript:newFeed()" id="newFeed">New Feed</a>
-					<a target="blank_" href="https://github.com/DummiApp/dummi" id="helpLink">Help</a>
-				</nav>
-			</div>
-			<pre class="slab">
-				<code id="codeField"></code>
-			</pre>
-			<div class="path" id="implementField">
-				<!-- <input type="text" id="path--field" value="Download as a JSON file" readonly> -->
-				<!-- <a href="#" id="copyButton" onclick="copyLink()">Copy</a> -->
-			</div>	
-		</main>
-		<div class="footer"><hr><p><a target="blank_" href="https://twitter.com/dummiapp">@DummiApp</a>, created by <a target="blank_" href="https://twitter.com/aBenjamin765">@aBenjamin765</a> and <a target="blank_" href="https://twitter.com/seven11nash">@seven11nash</a></p></div>
-	</div>
-
-	<script src="js/jquery.min.js"></script>
-	<script src="js/chance.min.js"></script>
-	<script src="js/dummi.js"></script>
-
-</body>
-</html>
