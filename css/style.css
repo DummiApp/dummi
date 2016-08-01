@@ -161,6 +161,10 @@ Buttons
 	cursor: pointer;
 }
 
+.lastDropDown{
+	margin-bottom: -2px;
+}
+
 /*-----------------
 Wrapper
 -----------------*/
@@ -234,9 +238,10 @@ Side Bar
 
 .split{
 	text-align: center;
-	display: block
+	display: block;
 	margin: 10px 0;	
 	position: relative;
+	background: transparent;
 }
 
 .split span{

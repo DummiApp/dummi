@@ -46,42 +46,24 @@ function loadPreset(){
 	var selectedValueField = document.getElementById("presetSelector");
 	var presetName = selectedValueField.options[selectedValueField.selectedIndex].value;
 
-	if(presetName == "Small User Set"){
+	if(presetName == "Users"){
 		newFeed();
 
-		feedName = "dummi Users";
 		valuePool = "Users";
 		valueArray = ["fullName", "firstName", "lastName", "gender", "age", "username", "email", "usPhone"];
 		gender = "both";
 		valueDetailArray = [gender, "none", "none", "none", "adult", "none", "none", "us"];
-		
-		itemArray = [];
-		for(var i = 0;i<20;i+=1){
-			itemArray.push('"' + i + '"');
-		}
-
-		$("#feedName").val(feedName);
-		$("#itemNumber").val(itemArray.length);
 
 		renderValues();
 		updateFeed();
 		document.getElementById("presetSelector").value = presetName;
-	}else if(presetName == "Small News Article Set"){
+	}else if(presetName == "News Articles"){
 		newFeed();
 
-		feedName = "dummi Articles";
 		updateValuePool("Articles");
 		valueArray = ["title", "subTitle", "createdOn", "createdBy", "text", "rating"];
 		gender = "both";
 		valueDetailArray = ["none", "none", "USDate", "usersName", "short", "outOfTen"];
-		
-		itemArray = [];
-		for(var i = 0;i<20;i+=1){
-			itemArray.push('"' + i + '"');
-		}
-
-		$("#feedName").val(feedName);
-		$("#itemNumber").val(itemArray.length);
 
 		renderValues();
 		updateFeed();
@@ -448,9 +430,6 @@ function updateFeed(){
 
 	var finalJSON = '{<br>"<span>' + feedName + '</span>": [<br>';
 	var finalCSV = "<span>id";
-	if(valuePool == "Users"){
-		finalCSV = finalCSV + ",fullName";
-	}
 
 	if(valueArray.length > 0){
 		finalCSV = finalCSV + ",";
@@ -534,7 +513,7 @@ function updateFeed(){
 		var j = 0;
 		if(valuePool == "Users"){
 			finalJSON = finalJSON + ',<br>';
-			finalCSV + ",";
+			finalCSV = finalCSV + ",";
 			finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>fullName</span>": "' + fullName + '"';
 			finalCSV = finalCSV + fullName;
 			j = 1;
