@@ -1,11 +1,11 @@
 Dummi
 =====
 
-Dummi.io is the best way of generating fake user data in many different file formats, quickly and easily. Dummi.io is especially for developers and designers who can use this data to quickly test something in their code or need data for their design. We will continue adding supported file-types as we go and have some cool features planned in the making. Stay tuned for updates and keep an eye on [dummi.io](https://dummi.io/), to be the first in use of all the great features to come. For more updates [follow us on Twitter](https://twitter.com/dummiapp).
+Dummi.io is the best way of generating fake user data in many different file formats, quickly and easily. Dummi.io is especially for developers and designers who can use this data to quickly test something in their code or need data for their design. We will continue adding supported file-types as we go and have some cool features planned in the making. Stay tuned for updates and keep an eye on [dummi.io](http://dummi.io/), to be the first in use of all the great features to come. For more updates [follow us on Twitter](https://twitter.com/dummiapp).
 
 So How Does Dummi Work?
 -
-- Visit [dummi.io](https://dummi.io/) and get started in a flash
+- Visit [dummi.io](http://dummi.io/) and get started in a flash
 - Select in what format you want to have the dummi data
 - Name the file (sometimes it will only be the file name, other times it will have part in the data)
 - Select the number of data items you want to have
@@ -61,6 +61,6 @@ Currently we are not sure how we are fully going to handle people contributing t
 
 Contact / Socials
 -
-- Visit [dummi.io](https://dummi.io/)
+- Visit [dummi.io](http://dummi.io/)
 - [Follow us on Twitter](https://twitter.com/dummiapp)
 - Mail either aaron@dummi.io or marc@dummi.io
