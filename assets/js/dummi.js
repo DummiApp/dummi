@@ -310,13 +310,14 @@ function addValue(){
 		valueArray.push(selectedValue);
 	}
 
-	potentialValue = {
+	var potentialValue = {
 		'phone': 'us',
 		'age': 'adult',
 		'createdOn': 'USDate',
 		'author': 'usersName',
 		'rating': 'outOfFive',
-		'startTimes': 'anyTime' }
+		'startTimes': 'anyTime' 
+	}
 
 	if (selectedValue in potentialValue) {
 		valueDetailArray.push(potentialValue[selectedValue]);
@@ -727,9 +728,9 @@ function updateFeed(){
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>startTimes</span>": {<br>';
 					for(var k = 0;k<randomTimes.length;k+=1){
 						if(k == randomTimes.length-1){
-							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>": "' + randomTimes[k] + '"<br>';
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' + k + '</span>: "' + randomTimes[k] + '"<br>';
 						}else{
-							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>": "' + randomTimes[k] + '",<br>';
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' + k + '</span>: "' + randomTimes[k] + '",<br>';
 						}
 					}
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}';
@@ -746,9 +747,9 @@ function updateFeed(){
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>eveningStartTimes</span>": {<br>';
 					for(var k = 0;k<randomTimes.length;k+=1){
 						if(k == randomEveningTimes.length-1){
-							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>": "' + randomEveningTimes[k] + '"<br>';
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' + k + '</span>": "' + randomEveningTimes[k] + '"<br>';
 						}else{
-							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>": "' + randomEveningTimes[k] + '",<br>';
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' + k + '</span>": "' + randomEveningTimes[k] + '",<br>';
 						}
 					}
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}';
@@ -765,9 +766,9 @@ function updateFeed(){
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>middayStartTimes</span>": {<br>';
 					for(var k = 0;k<randomTimes.length;k+=1){
 						if(k == randomMiddayTimes.length-1){
-							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>": "' + randomMiddayTimes[k] + '"<br>';
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' + k + '</span>: "' + randomMiddayTimes[k] + '"<br>';
 						}else{
-							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>": "' + randomMiddayTimes[k] + '",<br>';
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' + k + '</span>: "' + randomMiddayTimes[k] + '",<br>';
 						}
 					}
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}';
@@ -819,27 +820,28 @@ function updateFeed(){
 	}
 
 	if(outputType == "CSV"){
-		// DOWNLOAD CSV
-		finalCSV = "data:text/csv;charset=utf-8," + finalCSV;
-		finalCSV = finalCSV.split('&nbsp;').join('');
-		finalCSV = finalCSV.split('<span>').join('');
-		finalCSV = finalCSV.split('</span>').join('');
-		finalCSV = finalCSV.split('<br>').join('\n');
-		var data = encodeURI(finalCSV);
-		document.getElementById("implementField").innerHTML = "";
-		$('#implementField').append('<input type="text" id="path--field" value="Download as an CSV file" readonly><a href="data:' + data + '" download="' + feedName + '.csv">Download</a>');
-	}else{
-		// DOWNLOAD JSON
-		finalJSON = finalJSON.split('&nbsp;').join('');
-		finalJSON = finalJSON.split('<span>').join('');
-		finalJSON = finalJSON.split('</span>').join('');
-		finalJSON = finalJSON.split('<br>').join('');
-		var data = finalJSON;
-		data = JSON.parse(data);
-		data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
-		document.getElementById("implementField").innerHTML = "";
-		$('#implementField').append('<input type="text" id="path--field" value="Download as a JSON file" readonly><a href="data:' + data + '" download="' + feedName + '.json">Download</a>');
-	}
+        // DOWNLOAD CSV
+        finalCSV = "data:text/csv;charset=utf-8," + finalCSV;
+        finalCSV = finalCSV.split('&nbsp;').join('');
+        finalCSV = finalCSV.split('<span>').join('');
+        finalCSV = finalCSV.split('</span>').join('');
+        finalCSV = finalCSV.split('<br>').join('\n');
+        var data = encodeURI(finalCSV);
+        document.getElementById("implementField").innerHTML = "";
+        $('#implementField').append('<input type="text" id="path--field" value="Download as an CSV file" readonly><a href="data:' + data + '" download="' + feedName + '.csv">Download</a><p><span>Note</span>: If you contain any images in your DummiData, there may be a chance it is licensed material. Not for commercial use.</p>');
+    }else{
+        // DOWNLOAD JSON
+        finalJSON = finalJSON.split('&nbsp;').join('');
+        finalJSON = finalJSON.split('<span>').join('');
+        finalJSON = finalJSON.split('</span>').join('');
+        finalJSON = finalJSON.split('<br>').join('');
+        var data = finalJSON;
+        data = JSON.parse(data);
+        data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
+        document.getElementById("implementField").innerHTML = "";
+        $('#implementField').append('<input type="text" id="path--field" value="Download as a JSON file" readonly><a href="data:' + data + '" download="' + feedName + '.json">Download</a><p><span>Note</span>: If you contain any media links in your DummiData, there may be a chance it is licensed material. Not for commercial use.</p>');
+    }
+    
 }
 
 // HELP TRIGGER
