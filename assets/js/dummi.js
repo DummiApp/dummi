@@ -728,9 +728,9 @@ function updateFeed(){
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>startTimes</span>": {<br>';
 					for(var k = 0;k<randomTimes.length;k+=1){
 						if(k == randomTimes.length-1){
-							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' + k + '</span>: "' + randomTimes[k] + '"<br>';
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>": "' + randomTimes[k] + '"<br>';
 						}else{
-							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' + k + '</span>: "' + randomTimes[k] + '",<br>';
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>": "' + randomTimes[k] + '",<br>';
 						}
 					}
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}';
@@ -747,9 +747,9 @@ function updateFeed(){
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>eveningStartTimes</span>": {<br>';
 					for(var k = 0;k<randomTimes.length;k+=1){
 						if(k == randomEveningTimes.length-1){
-							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' + k + '</span>": "' + randomEveningTimes[k] + '"<br>';
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>": "' + randomEveningTimes[k] + '"<br>';
 						}else{
-							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' + k + '</span>": "' + randomEveningTimes[k] + '",<br>';
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>: "' + randomEveningTimes[k] + '",<br>';
 						}
 					}
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}';
@@ -766,9 +766,9 @@ function updateFeed(){
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>middayStartTimes</span>": {<br>';
 					for(var k = 0;k<randomTimes.length;k+=1){
 						if(k == randomMiddayTimes.length-1){
-							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' + k + '</span>: "' + randomMiddayTimes[k] + '"<br>';
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>": "' + randomMiddayTimes[k] + '"<br>';
 						}else{
-							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' + k + '</span>: "' + randomMiddayTimes[k] + '",<br>';
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>": "' + randomMiddayTimes[k] + '",<br>';
 						}
 					}
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}';
