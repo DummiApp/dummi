@@ -1,0 +1,36 @@
+/*
+Error: Invalid CSS after "@charset "UTF-8"": expected "{", was ";"
+        on line 3 of /Users/Marc/Documents/dummi/assets/css/main.scss
+
+1: ---
+2: ---
+3: @charset "UTF-8";
+4: 
+5: $primaryColor:  #FF0078;
+6: $darkColor: #CC005C;
+7: $lightColor: #FF66AD;
+8: 
+
+Backtrace:
+/Users/Marc/Documents/dummi/assets/css/main.scss:3
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/scss/parser.rb:1179:in `expected'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/scss/parser.rb:1115:in `expected'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/scss/parser.rb:1110:in `tok!'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/scss/parser.rb:654:in `block'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/scss/parser.rb:647:in `ruleset'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/scss/parser.rb:673:in `block_child'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/scss/parser.rb:663:in `block_contents'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/scss/parser.rb:123:in `stylesheet'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/scss/parser.rb:39:in `parse'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/engine.rb:403:in `_to_tree'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/engine.rb:278:in `render'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/exec/sass_scss.rb:423:in `run'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/exec/sass_scss.rb:63:in `process_result'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/exec/base.rb:52:in `parse'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/exec/base.rb:19:in `parse!'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/bin/scss:13:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Invalid CSS after \"@charset \"UTF-8\"\": expected \"{\", was \";\"\A         on line 3 of /Users/Marc/Documents/dummi/assets/css/main.scss\A \A 1: ---\A 2: ---\A 3: @charset \"UTF-8\";\A 4: \A 5: $primaryColor:  #FF0078;\A 6: $darkColor: #CC005C;\A 7: $lightColor: #FF66AD;\A 8: "; }

@@ -26,7 +26,7 @@ function newFeed(optional){
 	for(var i = 0;i < userValues.length;i+=1){
 		$("#valueTypeSelection").append('<option value="' + userValues[i] + '">' + userValues[i] + '</option>');
 	}
-	
+
 
 	document.getElementById("valueWrapper").innerHTML = "";
 	$("#valueWrapper").append('<section class="block"><span class="node-name">fullName</span><input type="checkbox" id="fullName" name="toggles" class="toggle-switch" checked><label class="toggle" for="fullName"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">Gender</span><ul class="radio-list"><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="both" checked><label for="both">Both</label></li><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="male"><label for="male">Male</label></li><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="female"><label for="female">Female</label></li></ul></div></div></section>');
@@ -121,11 +121,11 @@ String.prototype.camelCase = function(value) {
 			camelcasedWord = camelcasedWord + words[i].toLowerCase();
 		}else{
 			camelcasedWord = camelcasedWord + words[i].capitalize();
-		}	
+		}
 	}
 	return camelcasedWord;
 }
-	
+
 // UPDATE OUTPUT
 function updateOutput(){
 
@@ -192,11 +192,11 @@ function updateValuePool(directType){
 
 	if(directType){
 		type = directType;
-	}else{	
+	}else{
 		var selectedValueField = document.getElementById("valuePoolSelection");
 		type = selectedValueField.options[selectedValueField.selectedIndex].value;
 	}
-	
+
 	valueArray = [];
 	valueDetailArray = [];
 
@@ -306,23 +306,22 @@ function addValue(){
 	var id = valueArray.length;
 	if(selectedValue == "phone"){
 		valueArray.push("usPhone");
-	}else{
+	} else {
 		valueArray.push(selectedValue);
 	}
 
-	if(selectedValue == "phone"){
-		valueDetailArray.push("us");
-	}else if(selectedValue == "age"){
-		valueDetailArray.push("adult");
-	}else if(selectedValue == "createdOn"){
-		valueDetailArray.push("USDate");
-	}else if(selectedValue == "author"){
-		valueDetailArray.push("usersName");
-	}else if(selectedValue == "rating"){
-		valueDetailArray.push("outOfFive");
-	}else if(selectedValue == "startTimes"){
-		valueDetailArray.push("anyTime");
-	}else{
+	var potentialValue = {
+		'phone': 'us',
+		'age': 'adult',
+		'createdOn': 'USDate',
+		'author': 'usersName',
+		'rating': 'outOfFive',
+		'startTimes': 'anyTime' 
+	}
+
+	if (selectedValue in potentialValue) {
+		valueDetailArray.push(potentialValue[selectedValue]);
+	} else {
 		valueDetailArray.push("none");
 	}
 
@@ -420,7 +419,7 @@ $('#itemNumber').focusin('input',function(e){
 
 				}
 		    }else{
-		  		
+
 		    }
 
 		  	updateFeed();
@@ -501,7 +500,7 @@ function updateFeed(){
 					fullName = chance.name({ gender: "male" });
 					itemGender = "male";
 			}
-			
+
 		}
 
 		// FIXED VARIABLES
@@ -548,9 +547,9 @@ function updateFeed(){
     	var MPPArating = ratingOptions[randomRatingOptions];
 
     	var randomMinute = ["00", "15", "20", "30", "40", "45", "50"];
-		var randomTimes = []; 
-		var randomEveningTimes = []; 
-		var randomMiddayTimes = []; 
+		var randomTimes = [];
+		var randomEveningTimes = [];
+		var randomMiddayTimes = [];
 		for(var k = 0;k<3;k+=1){
 			randomTimes.push(chance.integer({min: 1, max: 11}) + ":" + randomMinute[chance.integer({min: 1, max: randomMinute.length-1})] + "pm");
 			randomEveningTimes.push(chance.integer({min: 6, max: 11}) + ":" + randomMinute[chance.integer({min: 1, max: randomMinute.length-1})] + "pm");
@@ -729,9 +728,9 @@ function updateFeed(){
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>startTimes</span>": {<br>';
 					for(var k = 0;k<randomTimes.length;k+=1){
 						if(k == randomTimes.length-1){
-							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>": "' + randomTimes[k] + '"<br>';
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' + k + '</span>: "' + randomTimes[k] + '"<br>';
 						}else{
-							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>": "' + randomTimes[k] + '",<br>';
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' + k + '</span>: "' + randomTimes[k] + '",<br>';
 						}
 					}
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}';
@@ -748,9 +747,9 @@ function updateFeed(){
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>eveningStartTimes</span>": {<br>';
 					for(var k = 0;k<randomTimes.length;k+=1){
 						if(k == randomEveningTimes.length-1){
-							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>": "' + randomEveningTimes[k] + '"<br>';
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' + k + '</span>": "' + randomEveningTimes[k] + '"<br>';
 						}else{
-							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>": "' + randomEveningTimes[k] + '",<br>';
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' + k + '</span>": "' + randomEveningTimes[k] + '",<br>';
 						}
 					}
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}';
@@ -767,9 +766,9 @@ function updateFeed(){
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>middayStartTimes</span>": {<br>';
 					for(var k = 0;k<randomTimes.length;k+=1){
 						if(k == randomMiddayTimes.length-1){
-							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>": "' + randomMiddayTimes[k] + '"<br>';
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' + k + '</span>: "' + randomMiddayTimes[k] + '"<br>';
 						}else{
-							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>' + k + '</span>": "' + randomMiddayTimes[k] + '",<br>';
+							finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' + k + '</span>: "' + randomMiddayTimes[k] + '",<br>';
 						}
 					}
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}';
@@ -821,27 +820,28 @@ function updateFeed(){
 	}
 
 	if(outputType == "CSV"){
-		// DOWNLOAD CSV
-		finalCSV = "data:text/csv;charset=utf-8," + finalCSV;
-		finalCSV = finalCSV.split('&nbsp;').join('');
-		finalCSV = finalCSV.split('<span>').join('');
-		finalCSV = finalCSV.split('</span>').join('');
-		finalCSV = finalCSV.split('<br>').join('\n');
-		var data = encodeURI(finalCSV);
-		document.getElementById("implementField").innerHTML = "";
-		$('#implementField').append('<input type="text" id="path--field" value="Download as an CSV file" readonly><a href="data:' + data + '" download="' + feedName + '.csv">Download</a>');
-	}else{
-		// DOWNLOAD JSON
-		finalJSON = finalJSON.split('&nbsp;').join('');
-		finalJSON = finalJSON.split('<span>').join('');
-		finalJSON = finalJSON.split('</span>').join('');
-		finalJSON = finalJSON.split('<br>').join('');
-		var data = finalJSON;
-		data = JSON.parse(data);
-		data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
-		document.getElementById("implementField").innerHTML = "";
-		$('#implementField').append('<input type="text" id="path--field" value="Download as a JSON file" readonly><a href="data:' + data + '" download="' + feedName + '.json">Download</a>');
-	}
+        // DOWNLOAD CSV
+        finalCSV = "data:text/csv;charset=utf-8," + finalCSV;
+        finalCSV = finalCSV.split('&nbsp;').join('');
+        finalCSV = finalCSV.split('<span>').join('');
+        finalCSV = finalCSV.split('</span>').join('');
+        finalCSV = finalCSV.split('<br>').join('\n');
+        var data = encodeURI(finalCSV);
+        document.getElementById("implementField").innerHTML = "";
+        $('#implementField').append('<input type="text" id="path--field" value="Download as an CSV file" readonly><a href="data:' + data + '" download="' + feedName + '.csv">Download</a><p><span>Note</span>: If you contain any images in your DummiData, there may be a chance it is licensed material. Not for commercial use.</p>');
+    }else{
+        // DOWNLOAD JSON
+        finalJSON = finalJSON.split('&nbsp;').join('');
+        finalJSON = finalJSON.split('<span>').join('');
+        finalJSON = finalJSON.split('</span>').join('');
+        finalJSON = finalJSON.split('<br>').join('');
+        var data = finalJSON;
+        data = JSON.parse(data);
+        data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
+        document.getElementById("implementField").innerHTML = "";
+        $('#implementField').append('<input type="text" id="path--field" value="Download as a JSON file" readonly><a href="data:' + data + '" download="' + feedName + '.json">Download</a><p><span>Note</span>: If you contain any media links in your DummiData, there may be a chance it is licensed material. Not for commercial use.</p>');
+    }
+    
 }
 
 // HELP TRIGGER
