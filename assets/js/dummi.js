@@ -26,7 +26,7 @@ function newFeed(optional){
 	for(var i = 0;i < userValues.length;i+=1){
 		$("#valueTypeSelection").append('<option value="' + userValues[i] + '">' + userValues[i] + '</option>');
 	}
-	
+
 
 	document.getElementById("valueWrapper").innerHTML = "";
 	$("#valueWrapper").append('<section class="block"><span class="node-name">fullName</span><input type="checkbox" id="fullName" name="toggles" class="toggle-switch" checked><label class="toggle" for="fullName"><span></span></label><div class="options"><div class="options--frame"><span class="eyebrow">Gender</span><ul class="radio-list"><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="both" checked><label for="both">Both</label></li><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="male"><label for="male">Male</label></li><li><input type="radio" name="gender" onclick="updateItemDetail(this.id)" id="female"><label for="female">Female</label></li></ul></div></div></section>');
@@ -121,11 +121,11 @@ String.prototype.camelCase = function(value) {
 			camelcasedWord = camelcasedWord + words[i].toLowerCase();
 		}else{
 			camelcasedWord = camelcasedWord + words[i].capitalize();
-		}	
+		}
 	}
 	return camelcasedWord;
 }
-	
+
 // UPDATE OUTPUT
 function updateOutput(){
 
@@ -192,11 +192,11 @@ function updateValuePool(directType){
 
 	if(directType){
 		type = directType;
-	}else{	
+	}else{
 		var selectedValueField = document.getElementById("valuePoolSelection");
 		type = selectedValueField.options[selectedValueField.selectedIndex].value;
 	}
-	
+
 	valueArray = [];
 	valueDetailArray = [];
 
@@ -306,23 +306,21 @@ function addValue(){
 	var id = valueArray.length;
 	if(selectedValue == "phone"){
 		valueArray.push("usPhone");
-	}else{
+	} else {
 		valueArray.push(selectedValue);
 	}
 
-	if(selectedValue == "phone"){
-		valueDetailArray.push("us");
-	}else if(selectedValue == "age"){
-		valueDetailArray.push("adult");
-	}else if(selectedValue == "createdOn"){
-		valueDetailArray.push("USDate");
-	}else if(selectedValue == "author"){
-		valueDetailArray.push("usersName");
-	}else if(selectedValue == "rating"){
-		valueDetailArray.push("outOfFive");
-	}else if(selectedValue == "startTimes"){
-		valueDetailArray.push("anyTime");
-	}else{
+	potentialValue = {
+		'phone': 'us',
+		'age': 'adult',
+		'createdOn': 'USDate',
+		'author': 'usersName',
+		'rating': 'outOfFive',
+		'startTimes': 'anyTime' }
+
+	if (selectedValue in potentialValue) {
+		valueDetailArray.push(potentialValue[selectedValue]);
+	} else {
 		valueDetailArray.push("none");
 	}
 
@@ -420,7 +418,7 @@ $('#itemNumber').focusin('input',function(e){
 
 				}
 		    }else{
-		  		
+
 		    }
 
 		  	updateFeed();
@@ -501,7 +499,7 @@ function updateFeed(){
 					fullName = chance.name({ gender: "male" });
 					itemGender = "male";
 			}
-			
+
 		}
 
 		// FIXED VARIABLES
@@ -548,9 +546,9 @@ function updateFeed(){
     	var MPPArating = ratingOptions[randomRatingOptions];
 
     	var randomMinute = ["00", "15", "20", "30", "40", "45", "50"];
-		var randomTimes = []; 
-		var randomEveningTimes = []; 
-		var randomMiddayTimes = []; 
+		var randomTimes = [];
+		var randomEveningTimes = [];
+		var randomMiddayTimes = [];
 		for(var k = 0;k<3;k+=1){
 			randomTimes.push(chance.integer({min: 1, max: 11}) + ":" + randomMinute[chance.integer({min: 1, max: randomMinute.length-1})] + "pm");
 			randomEveningTimes.push(chance.integer({min: 6, max: 11}) + ":" + randomMinute[chance.integer({min: 1, max: randomMinute.length-1})] + "pm");
