@@ -310,13 +310,13 @@ function addValue(){
 		valueArray.push(selectedValue);
 	}
 
-	potentialValue = {'phone': 'us',
-										'age': 'adult',
-										'createdOn': 'USDate',
-										'author': 'usersName',
-										'rating': 'outOfFive',
-										'startTimes': 'anyTime'
-									}
+	potentialValue = {
+		'phone': 'us',
+		'age': 'adult',
+		'createdOn': 'USDate',
+		'author': 'usersName',
+		'rating': 'outOfFive',
+		'startTimes': 'anyTime' }
 
 	if (selectedValue in potentialValue) {
 		valueDetailArray.push(potentialValue[selectedValue]);
