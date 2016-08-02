@@ -844,6 +844,18 @@ function updateFeed(){
 	}
 }
 
+// HELP TRIGGER
+$(document).ready(function(){
+	$('#helpLink').click(function(){
+		$('.help').fadeToggle();
+	});
+
+	$('#closeLink').click(function(){
+		$('.help').fadeToggle();
+	});
+});
+
+
 // INITIAL START
 newFeed();
 

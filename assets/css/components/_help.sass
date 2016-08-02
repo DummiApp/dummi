@@ -1,0 +1,52 @@
+.help
+	background: rgba(0,0,0,0.9)
+	color: white
+	position: fixed
+	top: 0
+	bottom: 0
+	left: 0
+	right: 0
+	z-index: 99
+	overflow-y: scroll	
+	display: none
+	&--box
+		margin: 0 auto
+		max-width: 600px
+		padding: 70px 30px
+	hr
+		margin-bottom: 20px
+	h1
+		font-size: 30px
+		margin-bottom: 20px
+		
+		+ p
+			font-size: 16px
+			line-height: 24px
+	h2
+		font-size: 12px
+		font-weight: 900
+		margin-bottom: 20px
+	h4
+		margin-bottom: 20px
+	p
+		font-size: 12px
+		margin-bottom: 20px
+		line-height: 18px
+	ul
+		font-size: 12px
+		padding-left: 20px
+		list-style: disc
+		margin-bottom: 20px
+		li
+			line-height: 18px
+	a
+		color: $primaryColor
+		text-decoration: none
+		&:hover
+			color: $lightColor
+	#closeLink
+		position: fixed
+		top: 20px
+		right: 50px
+		font-size: 40px
+

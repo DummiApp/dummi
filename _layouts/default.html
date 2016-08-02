@@ -11,5 +11,13 @@
 				<script src="/assets/js/dummi.min.js"></script>
 			</footer>
 		</div>
+		<!-- Help Screen -->
+		<div class="help">
+			<a href="javascript:void(0)" id="closeLink">✕</a>
+			<div class="help--box">
+				{% capture README %}{% include README.md %}{% endcapture %}
+				{{ README | markdownify }}
+			</div>
+		</div>
 	</body>
 </html>
