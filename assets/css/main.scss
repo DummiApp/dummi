@@ -36,4 +36,29 @@ body{
 	max-width: 980px;
 	margin: 0 auto;
 	overflow: hidden;
+	position: relative;
+
+}
+
+//  Mobile
+
+@media screen and (max-width: 980px){
+	#wrapper{
+		max-width: 600px;
+	}
+	.side-bar {
+		float: none;
+		width: 100%;
+		box-sizing: border-box;
+	}
+	main{
+		width: 100%;
+		float: none; 
+		position: relative;
+		margin-left: 0;
+	
+	}
+	
+
+
 }
