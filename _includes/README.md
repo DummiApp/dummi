@@ -28,7 +28,9 @@ CSV is a very commonly supported file-type not only in development or design but
 
 Retrieving Data from a Dummi File
 -
+
 #### Retrieving results from JSON (using jQuery)
+
 ```javascript
 $.getJSON("pathTo/dummi.json", function(json) {
   var fullName = json.dummi[0].fullName;
@@ -40,6 +42,7 @@ $.getJSON("pathTo/dummi.json", function(json) {
 
 Features and File-Types Planned for the Future
 -
+
 #### More and More Value Types
 We want to continue adding more and more types of values you can add to your dummi data allowing for hopefully all of your needs being fulfilled.
 
