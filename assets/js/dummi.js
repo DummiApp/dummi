@@ -828,7 +828,7 @@ function updateFeed(){
         finalCSV = finalCSV.split('<br>').join('\n');
         var data = encodeURI(finalCSV);
         document.getElementById("implementField").innerHTML = "";
-        $('#implementField').append('<input type="text" id="path--field" value="Download as an CSV file" readonly><a href="data:' + data + '" download="' + feedName + '.csv">Download</a><p><span>Note</span>: If you contain any images in your DummiData, there may be a chance it is licensed material. Not for commercial use.</p>');
+        $('#implementField').append('<input type="text" id="path--field" value="Download as an CSV file" readonly><a href="data:' + data + '" download="' + feedName + '.csv">Download</a>');
     }else{
         // DOWNLOAD JSON
         finalJSON = finalJSON.split('&nbsp;').join('');
@@ -839,7 +839,7 @@ function updateFeed(){
         data = JSON.parse(data);
         data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
         document.getElementById("implementField").innerHTML = "";
-        $('#implementField').append('<input type="text" id="path--field" value="Download as a JSON file" readonly><a href="data:' + data + '" download="' + feedName + '.json">Download</a><p><span>Note</span>: If you contain any media links in your DummiData, there may be a chance it is licensed material. Not for commercial use.</p>');
+        $('#implementField').append('<input type="text" id="path--field" value="Download as a JSON file" readonly><a href="data:' + data + '" download="' + feedName + '.json">Download</a>');
     }
     
 }
