@@ -12,7 +12,28 @@
     [ ] generates the output
   [ ] display
     [ ] translates the object to nicely viewable document
+
+  TODO: Add all generators and types back in
+  TODO: remove all inline generators
+  TODO: add event listeners to new items
+  TODO: readd downloading functionality
 */
+
+function byId(id) {
+  return document.getElementById(id);
+}
+
+var els = {
+  outputType: byId('outputTypeSelection'),
+  feedName: byId('feedName'),
+  itemNumber: byId('itemNumber'),
+  valuePool: byId('valuePoolSelection'),
+  valueType: byId('valueTypeSelection'),
+  addValue: null, // add Id later
+  presetSelector: byId('presetSelector'),
+  newFeed: byId('newFeed'),
+  helpLink: byId('helpLink')
+}
 
 var viewOptions = {
   valuePool: 'Users'
