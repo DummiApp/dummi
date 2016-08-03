@@ -19,6 +19,18 @@
   TODO: readd downloading functionality
 */
 
+function camelCase(text) {
+  var words = text.split(' ');
+  var numberOfWords = words.length;
+  var camelCased = '';
+
+  for (var i = 1; i < numberOfWords; i++) {
+    camelCased += words[i][0].toUpperCase();
+  }
+
+  return camelCased;
+}
+
 function byId(id) {
   return document.getElementById(id);
 }
@@ -57,6 +69,20 @@ var schema = [
     key: 'age'
   }
 ];
+
+
+
+els.outputType.addEventListener('change', function() {
+  generateOptions.type = this.value;
+});
+
+els.feedName.addEventListener('keyup', function() {
+  var title = this.value;
+  title = title.replace(/[^A-Za-z0-9\s]/g,'').toLowerCase();
+  title = camelCase(title);
+  generateOptions.title = title;
+});
+
 
 
 function generateFullName(gender) {

@@ -1,81 +1,79 @@
-.block .close, .block .node-name  
-	line-height: 20px 
-	display: block 
-	font-size: 16px 
-	float: left 
-.block 
-	overflow: hidden 
-	padding: 20px 0 
-	border-bottom: solid 1px #ccc 
+.block .close, .block .node-name
+	line-height: 20px
+	display: block
+	font-size: 16px
+	float: left
+.block
+	overflow: hidden
+	padding: 20px 0
+	border-bottom: solid 1px #ccc
 
-	.eyebrow 
-		color: #999 
-		margin-top: 0px 
- 
-	input[type="text"] 
-		background: white 
-		border: solid 1px #ccc 
-		padding: 5px 10px 
-		box-sizing: border-box 
-		font-size: 14px 
-		color: #333 
-		margin: 0 
+	.eyebrow
+		color: #999
+		margin-top: 0px
 
-	.close 
-		color: #ccc 
-		font-size: 9px 
-		margin-right: 7px 
-		text-decoration: none 
-		&:hover 
-			color: #999 
+	input[type="text"],
+	input[type="number"] 
+		background: white
+		border: solid 1px #ccc
+		padding: 5px 10px
+		box-sizing: border-box
+		font-size: 14px
+		color: #333
+		margin: 0
+
+	.close
+		color: #ccc
+		font-size: 9px
+		margin-right: 7px
+		text-decoration: none
+		&:hover
+			color: #999
 	.toggle
-		float: right 	
-		display: block 
-		text-align: center 
-		line-height: 20px 
-		color: #999 
-		font-size: 15px 
-		font-weight: 400 	
-		-webkit-transition: all 0.15s ease-out 0s 
-		-moz-transition: all 0.15s ease-out 0s 
-		transition: all 0.15s ease-out 0s  
-		&:hover 
-			cursor: pointer 	
-			border-color: #999 	
-		span:before 
-			content: '+' 
-	.toggle-switch 
-		display: none 
-		&:checked ~ .toggle 
-			border-color: #999 
-			-ms-transform: rotate(45deg)  
-			-webkit-transform: rotate(45deg)  
-			transform: rotate(45deg) 
-			color: #333 
-		&:checked ~ .options 
-			display: block 
-			max-height: 200px 
- 
-	.options 
-		clear: both 
-		overflow: hidden 
-		-webkit-transition: all 0.15s ease-out 0s 
-		-moz-transition: all 0.15s ease-out 0s 
-		transition: all 0.15s ease-out 0s  	
-		max-height: 0px 
-		&--frame 
-			margin-top: 20px 
-			border-left: solid 2px #eee 
-			padding-left: 15px 
+		float: right
+		display: block
+		text-align: center
+		line-height: 20px
+		color: #999
+		font-size: 15px
+		font-weight: 400
+		-webkit-transition: all 0.15s ease-out 0s
+		-moz-transition: all 0.15s ease-out 0s
+		transition: all 0.15s ease-out 0s
+		&:hover
+			cursor: pointer
+			border-color: #999
+		span:before
+			content: '+'
+	.toggle-switch
+		display: none
+		&:checked ~ .toggle
+			border-color: #999
+			-ms-transform: rotate(45deg)
+			-webkit-transform: rotate(45deg)
+			transform: rotate(45deg)
+			color: #333
+		&:checked ~ .options
+			display: block
+			max-height: 200px
 
-	.radio-list 
-		li 
-			+ li 
-				margin-top: 10px 
-			label 
-				font-size: 14px 
-			input[type="radio"] 
-				margin-right: 6px 
- 
+	.options
+		clear: both
+		overflow: hidden
+		-webkit-transition: all 0.15s ease-out 0s
+		-moz-transition: all 0.15s ease-out 0s
+		transition: all 0.15s ease-out 0s
+		max-height: 0px
+		&--frame
+			margin-top: 20px
+			border-left: solid 2px #eee
+			padding-left: 15px
 
- 
+	.radio-list
+		li
+			+ li
+				margin-top: 10px
+			label
+				font-size: 14px
+			input[type="radio"]
+				margin-right: 6px
