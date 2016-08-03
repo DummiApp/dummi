@@ -84,8 +84,8 @@ function loadPreset(){
 		newFeed("noSwitchToCustom");
 
 		updateValuePool("Articles");
-		valueArray = ["title", "subTitle", "author", "createdOn", "fullArticle", "rating"];
-		valueDetailArray = ["none", "none", "usersName", "USDate", "none", "outOfTen"];
+		valueArray = ["title", "subTitle", "author", "createdOn", "fullArticle", "rating", "reviews"];
+		valueDetailArray = ["none", "none", "usersName", "USDate", "none", "outOfTen", "none"];
 
 		renderValues();
 		updateFeed();
@@ -232,14 +232,14 @@ function updateValuePool(directType){
 			break;
 		case "Movies":
 			valuePool = "Articles";
-			var movieValues = ["title", "description", "releaseDate", "releaseYear", "MPPArating", "runtime", "startTimes", "rating"];
+			var movieValues = ["title", "description", "releaseDate", "releaseYear", "MPPArating", "runtime", "startTimes", "rating", "reviews"];
 			for(var i = 0;i < movieValues.length;i+=1){
 				$("#valueTypeSelection").append('<option value="' + movieValues[i] + '">' + movieValues[i] + '</option>');
 			}
 			break;
 		case "Articles":
 			valuePool = "Articles";
-			var articleValues = ["title", "subTitle", "createdOn", "author", "snippet", "fullArticle", "rating"];
+			var articleValues = ["title", "subTitle", "createdOn", "author", "snippet", "fullArticle", "rating", "reviews"];
 			for(var i = 0;i < articleValues.length;i+=1){
 				$("#valueTypeSelection").append('<option value="' + articleValues[i] + '">' + articleValues[i] + '</option>');
 			}
