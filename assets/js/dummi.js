@@ -74,8 +74,8 @@ function loadPreset(){
 		newFeed("noSwitchToCustom");
 
 		updateValuePool("Movies");
-		valueArray = ["title", "description", "MPPArating", "runtime", "startTimes", "rating"];
-		valueDetailArray = ["none", "none", "none", "none", "anyTime", "outOfTen"];
+		valueArray = ["title", "description", "releaseYear", "MPPArating", "runtime", "startTimes", "rating"];
+		valueDetailArray = ["none", "none", "none", "none", "none", "anyTime", "outOfTen"];
 
 		renderValues();
 		updateFeed();
@@ -189,7 +189,6 @@ $('#feedName').focusout('input',function(e){
 function updateValuePool(directType){
 
 	var type = "";
-
 	if(directType){
 		type = directType;
 	}else{
@@ -223,7 +222,7 @@ function updateValuePool(directType){
 			break;
 		case "Movies":
 			valuePool = "Articles";
-			var movieValues = ["title", "description", "MPPArating", "runtime", "startTimes", "rating"];;
+			var movieValues = ["title", "description", "releaseYear", "MPPArating", "runtime", "startTimes", "rating"];;
 			for(var i = 0;i < movieValues.length;i+=1){
 				$("#valueTypeSelection").append('<option value="' + movieValues[i] + '">' + movieValues[i] + '</option>');
 			}
@@ -292,6 +291,7 @@ function renderValues(){
 			}
 
 		}
+		
 	}
 
 	updateFeed();
@@ -542,6 +542,8 @@ function updateFeed(){
     	var description = HolderIpsum.words(chance.integer({min: 6, max: 24}), true);
 		description = description.charAt(0).toUpperCase() + description.slice(1) + ".";
 
+		var releaseYear = chance.integer({min: 2000, max: 2016});
+
 		var ratingOptions = ["UR", "G", "PG", "PG-13", "R", "NC-17"];
     	var randomRatingOptions = chance.integer({min: 1, max: ratingOptions.length-1});
     	var MPPArating = ratingOptions[randomRatingOptions];
@@ -715,6 +717,10 @@ function updateFeed(){
 				case "description":
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>description</span>": "' + description + '"';
 					finalCSV = finalCSV + description;
+					break;
+				case "releaseYear":
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>releaseYear</span>": ' + releaseYear;
+	    			finalCSV = finalCSV + releaseYear;
 					break;
 				case "MPPArating":
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>MPPArating</span>": "' + MPPArating + '"';
