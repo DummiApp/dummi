@@ -60,12 +60,12 @@ function loadPreset(){
 		renderValues();
 		updateFeed();
 		document.getElementById("presetSelector").value = presetName;
-	}else if(presetName == "News Articles"){
+	}else if(presetName == "Books"){
 		newFeed("noSwitchToCustom");
 
-		updateValuePool("Articles");
-		valueArray = ["title", "subTitle", "author", "createdOn", "fullArticle", "rating"];
-		valueDetailArray = ["none", "none", "usersName", "USDate", "none", "outOfTen"];
+		updateValuePool("Books");
+		valueArray = ["title", "description", "author", "price", "releaseDate", "rating", "reviews"];
+		valueDetailArray = ["none", "none", "fullName", "none", "USDate", "outOfFive", "none"];
 
 		renderValues();
 		updateFeed();
@@ -74,8 +74,18 @@ function loadPreset(){
 		newFeed("noSwitchToCustom");
 
 		updateValuePool("Movies");
-		valueArray = ["title", "description", "releaseYear", "MPPArating", "runtime", "startTimes", "rating"];
-		valueDetailArray = ["none", "none", "none", "none", "none", "anyTime", "outOfTen"];
+		valueArray = ["title", "description", "releaseDate", "MPPArating", "runtime", "startTimes", "rating", "reviews"];
+		valueDetailArray = ["none", "none", "USDate", "none", "none", "anyTime", "outOfTen", "none"];
+
+		renderValues();
+		updateFeed();
+		document.getElementById("presetSelector").value = presetName;
+	}else if(presetName == "Articles"){
+		newFeed("noSwitchToCustom");
+
+		updateValuePool("Articles");
+		valueArray = ["title", "subTitle", "author", "createdOn", "fullArticle", "rating"];
+		valueDetailArray = ["none", "none", "usersName", "USDate", "none", "outOfTen"];
 
 		renderValues();
 		updateFeed();
@@ -213,18 +223,25 @@ function updateValuePool(directType){
 				$("#valueTypeSelection").append('<option value="' + userValues[i] + '">' + userValues[i] + '</option>');
 			}
 			break;
+		case "Books":
+			valuePool = "Books";
+			var bookValues = ["title", "description", "author", "price", "releaseDate", "releaseYear", "rating", "reviews"];
+			for(var i = 0;i < bookValues.length;i+=1){
+				$("#valueTypeSelection").append('<option value="' + bookValues[i] + '">' + bookValues[i] + '</option>');
+			}
+			break;
+		case "Movies":
+			valuePool = "Articles";
+			var movieValues = ["title", "description", "releaseDate", "releaseYear", "MPPArating", "runtime", "startTimes", "rating"];
+			for(var i = 0;i < movieValues.length;i+=1){
+				$("#valueTypeSelection").append('<option value="' + movieValues[i] + '">' + movieValues[i] + '</option>');
+			}
+			break;
 		case "Articles":
 			valuePool = "Articles";
 			var articleValues = ["title", "subTitle", "createdOn", "author", "snippet", "fullArticle", "rating"];
 			for(var i = 0;i < articleValues.length;i+=1){
 				$("#valueTypeSelection").append('<option value="' + articleValues[i] + '">' + articleValues[i] + '</option>');
-			}
-			break;
-		case "Movies":
-			valuePool = "Articles";
-			var movieValues = ["title", "description", "releaseYear", "MPPArating", "runtime", "startTimes", "rating"];;
-			for(var i = 0;i < movieValues.length;i+=1){
-				$("#valueTypeSelection").append('<option value="' + movieValues[i] + '">' + movieValues[i] + '</option>');
 			}
 			break;
 		default:
@@ -258,7 +275,7 @@ function renderValues(){
 				optionsLabel = "Age Boundries";
 				optionsArray = ["childAge", "teenAge", "age", "seniorAge"];
 				detailOptionsArray = ["child", "teen", "adult", "senior"];
-			}else if(valueArray[i] == "createdOn"){
+			}else if(valueArray[i] == "createdOn" || valueArray[i] == "releaseDate"){
 				optionsLabel = "Date Format";
 				optionsArray = ["mm/dd/yyyy", "dd/mm/yyyy"];
 				detailOptionsArray = ["USDate", "nonUSDate"];
@@ -537,16 +554,21 @@ function updateFeed(){
     	var title = HolderIpsum.words(chance.integer({min: 1, max: 5}), true);
 		title = title.capitalize();
 
-    	var rating = chance.floating({min: 0, max: 5, fixed: 1});
+    	var rating = chance.floating({min: 1, max: 5, fixed: 1});
+    	var reviews = chance.integer({min: 1, max: 140}) + " Reviews";
 
     	var description = HolderIpsum.words(chance.integer({min: 6, max: 24}), true);
 		description = description.charAt(0).toUpperCase() + description.slice(1) + ".";
 
 		var releaseYear = chance.integer({min: 2000, max: 2016});
+		var usReleaseDate = rndMonth + "/" + rndDay + "/" + releaseYear;
+    	var nonUsReleaseDate = rndDay + "/" + rndMonth + "/" + releaseYear;
 
 		var ratingOptions = ["UR", "G", "PG", "PG-13", "R", "NC-17"];
     	var randomRatingOptions = chance.integer({min: 1, max: ratingOptions.length-1});
     	var MPPArating = ratingOptions[randomRatingOptions];
+
+    	var price = chance.integer({min: 2, max: 29}) + ".99";
 
     	var randomMinute = ["00", "15", "20", "30", "40", "45", "50"];
 		var randomTimes = [];
@@ -714,9 +736,21 @@ function updateFeed(){
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>rating</span>": ' + tempRating;
 	    			finalCSV = finalCSV + tempRating;
 					break;
+				case "reviews":
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>reviews</span>": "' + reviews + '"';
+	    			finalCSV = finalCSV + reviews;
+					break;
 				case "description":
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>description</span>": "' + description + '"';
 					finalCSV = finalCSV + description;
+					break;
+				case "releaseDate":
+					var releaseDate = usReleaseDate;
+					if(valueDetailArray[j] == "nonUSDate"){
+						releaseDate = nonUsReleaseDate;
+					}
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>releaseDate</span>": "' + releaseDate + '"';
+	    			finalCSV = finalCSV + releaseDate;
 					break;
 				case "releaseYear":
 					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>releaseYear</span>": ' + releaseYear;
@@ -787,6 +821,10 @@ function updateFeed(){
 						}
 					}
 					break;
+				case "price":
+					finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span>price</span>": ' + price;
+					finalCSV = finalCSV + price;
+					break;
 				default:
 					console.log("an error has occured, please contact @seven11nash on Twitter or via marc@dummi.io to report this bug.");
 			}
@@ -801,7 +839,6 @@ function updateFeed(){
 		}
 
 		finalJSON = finalJSON + '&nbsp;&nbsp;&nbsp;&nbsp;}';
-
 		if(i+1 == valueAmount){
 			finalJSON = finalJSON + '<br>';
 		}else{
@@ -810,6 +847,7 @@ function updateFeed(){
 		}
 
 	}
+
 	if(valueAmount == 0){
 		finalJSON = finalJSON + '<br>';
 	}
