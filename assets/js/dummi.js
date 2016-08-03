@@ -59,7 +59,7 @@ function loadPreset(){
 
 		renderValues();
 		updateFeed();
-		document.getElementById("presetSelector").value = presetName;
+		selectedValueField.value = presetName;
 	}else if(presetName == "Books"){
 		newFeed("noSwitchToCustom");
 
@@ -69,7 +69,7 @@ function loadPreset(){
 
 		renderValues();
 		updateFeed();
-		document.getElementById("presetSelector").value = presetName;
+		selectedValueField.value = presetName;
 	}else if(presetName == "Movies"){
 		newFeed("noSwitchToCustom");
 
@@ -79,7 +79,7 @@ function loadPreset(){
 
 		renderValues();
 		updateFeed();
-		document.getElementById("presetSelector").value = presetName;
+		selectedValueField.value = presetName;
 	}else if(presetName == "Articles"){
 		newFeed("noSwitchToCustom");
 
@@ -89,7 +89,7 @@ function loadPreset(){
 
 		renderValues();
 		updateFeed();
-		document.getElementById("presetSelector").value = presetName;
+		selectedValueField.value = presetName;
 	}
 }
 
@@ -210,7 +210,7 @@ function updateValuePool(directType){
 	valueDetailArray = [];
 
 	document.getElementById("valueTypeSelection").innerHTML = "";
-	document.getElementById("presetSelector").value = "custom";
+	document.getElementById("presetSelector") = "custom";
 	document.getElementById("valuePoolSelection").value = type;
 
 	switch(type){
@@ -308,7 +308,7 @@ function renderValues(){
 			}
 
 		}
-		
+
 	}
 
 	updateFeed();
@@ -333,7 +333,7 @@ function addValue(){
 		'createdOn': 'USDate',
 		'author': 'usersName',
 		'rating': 'outOfFive',
-		'startTimes': 'anyTime' 
+		'startTimes': 'anyTime'
 	}
 
 	if (selectedValue in potentialValue) {
@@ -885,7 +885,7 @@ function updateFeed(){
         document.getElementById("implementField").innerHTML = "";
         $('#implementField').append('<input type="text" id="path--field" value="Download as a JSON file" readonly><a href="data:' + data + '" download="' + feedName + '.json">Download</a>');
     }
-    
+
 }
 
 // HELP TRIGGER
@@ -902,17 +902,3 @@ $(document).ready(function(){
 
 // INITIAL START
 newFeed();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
