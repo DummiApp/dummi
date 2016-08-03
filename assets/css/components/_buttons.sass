@@ -64,15 +64,19 @@
 		-webkit-appearance: none 
 		-moz-appearance: none 
 		appearance: none 
-		border-radius: 2px 
+		border-radius: 0 
 		line-height: 40px 
 		padding-left: 13px 
 		font-family: 'Open Sans', arial, sans-serif 
 		font-size: 14px 
 		font-weight: 400 
 		z-index: 2 
+		color: #999
 		position: relative 
-		cursor: pointer 
+		&:hover, &:focus
+			color: #333
+		// cursor: pointer 
+
 
 .lastDropDown
 	margin-bottom: -2px 
