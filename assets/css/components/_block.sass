@@ -79,17 +79,25 @@
 .select-main
 	overflow: hidden
 	.drop-down				
-		width: 255px
+		width: 260px
 		float: left
+		background: $primaryColor	
+		border-color: $primaryColor		
 		box-sizing: border-box
+		select 
+			color: white
+		&::after
+			color: white
+
 	.btn
 		float: right
 		width: 40px
-		// border-radius: 50%
+		border-radius: 0
 		font-size: 20px
 		line-height: 42px 
 		box-sizing: border-box
 		padding: 0
+		background: $darkColor
 		box-shadow: none
 
 

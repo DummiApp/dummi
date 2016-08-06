@@ -7,7 +7,7 @@
 	</h1>
 
 	<!-- OUTPUT TYPE -->
-	<label for="outputType" class="eyebrow">Output Type</label>
+	<label for="outputTypeSelection" class="eyebrow">Output Type</label>
 	<div class="drop-down">
 		<select id="outputTypeSelection" onChange="updateOutput()">
 			<option value="JSON">JSON</option>
@@ -27,7 +27,7 @@
 	
 	<!-- Value Pool Selection -->
 	<section class="block">
-		<label for="type" class="eyebrow" id="valuePoolLabel">Value Pool</label>
+		<label for="valuePoolSelection" class="eyebrow" id="valuePoolLabel">Value Pool</label>
 		<div class="drop-down">
 			<select id="valuePoolSelection" onChange="updateValuePool()">
 				<option value="Users">Users</option>
@@ -36,7 +36,7 @@
 				<option value="Articles">News Articles</option>
 			</select>
 		</div>
-		<label for="type" class="eyebrow" style="margin-top: 20px" id="valueTypeLabel">Add Value</label>
+		<label for="valueTypeSelection" class="eyebrow" style="margin-top: 20px" id="valueTypeLabel">Add Value</label>
 
 		<div class="select-main">			
 			<div class="drop-down">
@@ -50,9 +50,10 @@
 		<p class="split"><span>or</span></p>
 
 		<!-- Preset Selection -->
+		<label for="presetSelector" class="eyebrow" id="presetLabel">Select a preset</label>
 		<div class="drop-down lastDropDown">
 			<select id="presetSelector" onChange="loadPreset()">
-				<option value="custom">Select a Preset</option>
+				<option value="custom">Custom</option>
 				<option value="Users">Users</option>
 				<option value="Books">Books</option>
 				<option value="Movies">Movies</option>
