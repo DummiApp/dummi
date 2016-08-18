@@ -1,0 +1,20 @@
+#wrapper {
+  height: 100%;
+  box-sizing: border-box;
+  padding-top: 60px;
+  position: relative;
+
+ }
+  #wrapper::after {
+    clear: both;
+    content: "";
+    display: table; }
+
+.frame {
+  z-index: 1;
+
+ }
+  .frame::after {
+    clear: both;
+    content: "";
+    display: table; }

@@ -1,0 +1,45 @@
+.page-header {
+  background: #F2F2F2;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  padding: 10px 20px 10px 10px;
+  z-index: 2;
+	clear: both;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  box-sizing: border-box;
+	// width: 100%;
+	// background: red;
+   }
+  .page-header::after {
+    clear: both;
+    content: "";
+    display: table; }
+  .page-header .logo {
+    float: left;
+    height: 40px;
+    padding-left: 65px;
+    font-size: 28px;
+    line-height: 22px;
+    font-family: "helvetica neue", helvetica, arial, sans-serif;
+    font-weight: 900;
+    color: #FF0078;
+    text-transform: lowercase;
+    background-image: url("/assets/img/dummi-logo.png");
+    background-position: left top;
+    background-repeat: no-repeat; }
+    .page-header .logo small {
+      display: block;
+      font-size: 10px;
+      text-transform: uppercase;
+      font-weight: 400;
+      color: #333;
+      letter-spacing: 0.05em; }
+  .page-header .header-nav {
+    float: right; }
+    .page-header .header-nav ul li {
+      display: inline-block; }
+      .page-header .header-nav ul li a {
+        line-height: 40px; }
+      .page-header .header-nav ul li + li {
+        margin-left: 15px; }

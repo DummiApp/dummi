@@ -1,0 +1,26 @@
+main
+	pre.stage
+
+		//- Settings
+		.stage--inputs
+			.array-name
+				label(for="arrayName") Array Name
+				input(type="text" id="arrayName" value="dummi-data" placeholder="Array Name")
+			.num-objects
+				label(for="objectNumber") # of objects
+				input(type="number" id="objectNumber" value="2")
+		
+		//- Object Display
+		code#codeField
+
+		//- Stage Controls 
+		nav.stage--controls
+
+			//- Reset Button
+			button#btnReset Reset
+
+			//- Download Options
+			ul.download-options
+				li: a(href="#")#downloadJSON JSON
+				li: a(href="#")#downloadCSV CSV
+

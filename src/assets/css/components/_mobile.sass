@@ -1,0 +1,59 @@
+@media screen and (max-width: 750px)
+
+	// Wrapper
+	#wrapper
+		padding-top: 110px
+		padding-bottom: 44px
+		height: auto
+
+	// Header
+	.page-header
+		height: 110px
+		display: table-cell
+		vertical-align: middle
+		.logo
+			margin: 0 auto
+			vertical-align: middle
+			display: block
+			width: 100%
+			text-align: center
+			padding: 50px 0 0
+			background:
+				position: top center
+		.header-nav
+			position: absolute
+			right: 20px
+
+	// Side Bar
+	.side-bar, main
+		float: none
+		width: 100%
+		height: auto
+		.object-container
+			overflow-y: auto
+
+
+	// Block
+	.block
+		&--options
+			width: 100%
+			padding: 0 0 20px
+		.eyebrow
+			margin-bottom: 20px
+		.radio-list
+			li + li
+				margin-top: 30px
+	// Stage
+	.stage
+		border-top: solid 10px black
+		#codeField
+			height: auto!important
+			overflow-y: auto!important
+			min-height: 320px
+		.array-name
+			width: 70%!important
+		.num-objects
+			width: 30%!important
+		&--controls
+			position: fixed
+			bottom: 0

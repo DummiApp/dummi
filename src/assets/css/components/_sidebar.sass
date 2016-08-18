@@ -1,0 +1,100 @@
+.side-bar
+	width: 300px
+	float: left
+	height: 100%
+	padding-top: 60px
+	position: relative
+	box-sizing: border-box
+	+clearfix
+	.dropdown
+		background:
+			color: white
+			image: url('/assets/img/dropdown-arrow.png')
+			repeat: no-repeat
+			position: 95% 90%
+		width: 43%
+		float: left
+		z-index: 1
+		box-sizing: border-box
+		label
+			font-size: 10px
+			font-weight: 900
+			color: #999
+			margin-top: 3px
+			padding: 7px 7px 0
+			letter-spacing: 0.02em
+			text-transform: uppercase
+			display: block
+		select
+			width: 100%
+			border: none
+			margin: 0
+			box-shadow: none
+			background-color: transparent
+			background-image: none
+			-webkit-appearance: none
+			-moz-appearance: none
+			appearance: none
+			border-radius: 0
+			line-height: 40px
+			padding-left: 13px
+			font-family: 'Open Sans', arial, sans-serif
+			font-size: 13px
+			font-weight: 400
+			z-index: 2
+			color: #333
+			position: relative
+			&:hover
+				cursor: pointer
+			&:focus
+				outline: none
+				color: $primaryColor
+		+ .dropdown
+			border-left: solid 1px #eee
+	#addValue
+		width: 14%
+		line-height: 40px
+		border: none
+		background: white
+		padding: 0
+		height: 60px
+		font-size: 16px
+		color: $primaryColor
+		box-sizing: border-box
+		border-left: solid 1px #e5e5e5
+		+transition(200ms)
+		&:hover
+			cursor: pointer
+			font-size: 20px
+
+	.object-container
+		height: 100%
+		background: $lightWhite
+		box-sizing: border-box
+		overflow-y: scroll
+		-webkit-overflow-scrolling: touch
+		&::-webkit-scrollbar
+			width: 0.5em
+			height: 0.5em
+			&-track
+				-webkit-box-shadow: none
+				background-color: #B3B3B3
+			&-thumb
+				background-color: #CCCCCC
+				outline: none
+#newObject
+	// border-bottom: solid 5px #ccc
+	box-shadow: 0 0 5px 0 rgba(0,0,0,0.3)
+	position: absolute
+	height: 57px
+	top: 0
+	width: 100%
+
+.eyebrow
+	font-size: 10px
+	font-weight: 700
+	text-transform: uppercase
+	display: block
+	margin-bottom: 10px
+	letter-spacing: 0.1em
+	margin-top: 20px

@@ -1,9 +1,14 @@
-### Codekit ###
-*.codekit
-*.codekit-cache
-*-min.js
-
-### Jekyll ###
-_site/
-.sass-cache/
-.jekyll-metadata
+.DS_Store
+*.log
+node_modules
+build
+*.node
+coverage
+*.orig
+.idea
+sandbox
+test/out-fixtures/*
+test/watch-*.txt
+gulp.1
+config.codekit
+.sass-cache
