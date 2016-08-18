@@ -1,0 +1,60 @@
+aside.side-bar
+
+	//- New Object Module
+	#newObject
+
+		//- Single Object
+		#newObject--selection
+			.dropdown
+				label(for="valuePoolSelection") Type
+				select#valuePoolSelection(title="Type of object")
+					option(value='users' selected) Users
+					option(value='articles') Articles
+					option(value='blog') Blog Posts
+					option(value='books') Books
+					option(value='comments') Comments
+					option(value='files') Files
+			.dropdown
+				label(for="valueTypeSelection") Value
+				select#valueTypeSelection(title="Object")
+					option(value="fullName") fullName
+					option(value="firstName" selected) firstName
+					option(value="lastName") lastName
+					option(value="gender") gender
+					option(value="age") age
+					option(value="username") username
+					option(value="email") email
+					option(value="emailVerified") emailVerified
+					option(value="phone") phone
+					option(value="twitterHandle") twitterHandle
+			button#addValue +
+	
+	//- Objects
+	.object-container#valueWrapper
+	
+		//- Object Block		
+		
+		section.block
+			//- Object Name
+			input(type="text" id="fullName" maxlength="40" title="fullName" placeholder="fullName" value="fullName" class="node-name" disabled)
+			
+			//- Object Tools
+			ul.block--tools
+				li: button.edit
+					| <svg viewbox="0 0 1792 1792"><path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z"></path></svg>
+				li: button.remove
+					| <svg viewbox="0 0 1792 1792"><path d="M704 736v576q0 14-9 23t-23 9h-64q-14 0-23-9t-9-23v-576q0-14 9-23t23-9h64q14 0 23 9t9 23zm256 0v576q0 14-9 23t-23 9h-64q-14 0-23-9t-9-23v-576q0-14 9-23t23-9h64q14 0 23 9t9 23zm256 0v576q0 14-9 23t-23 9h-64q-14 0-23-9t-9-23v-576q0-14 9-23t23-9h64q14 0 23 9t9 23zm128 724v-948h-896v948q0 22 7 40.5t14.5 27 10.5 8.5h832q3 0 10.5-8.5t14.5-27 7-40.5zm-672-1076h448l-48-117q-7-9-17-11h-317q-10 2-17 11zm928 32v64q0 14-9 23t-23 9h-96v948q0 83-47 143.5t-113 60.5h-832q-66 0-113-58.5t-47-141.5v-952h-96q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h309l70-167q15-37 54-63t79-26h320q40 0 79 26t54 63l70 167h309q14 0 23 9t9 23z"></path></svg>
+
+			//- Object Options
+			.block--options
+				span.eyebrow Gender
+				ul.radio-list
+					li
+						input(id="both0" type="radio" name="fullName" value="both" checked)
+						label(for="both0") Both
+					li
+						input(id="male0" type="radio" name="fullName" value="male")
+						label(for="male0") Male
+					li
+						input(id="female0" type="radio" name="fullName" value="female")
+						label(for="female0") Female

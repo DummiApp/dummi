@@ -1,0 +1,208 @@
+.block .close, .block .node-name
+	line-height: 20px
+	display: block
+	font-size: 16px
+	float: left
+.block
+	overflow: hidden
+	padding: 10px
+	// background: $lightWhite
+	width: 100%
+	box-sizing: border-box
+	+clearfix
+	&:nth-child(odd)
+		background: #EBEBEB
+
+	.eyebrow
+		color: #666
+		margin-top: 0px
+		margin-left: 5px
+
+	input[type="text"],
+	input[type="number"]
+		background: white
+		border: solid 1px #ccc
+		padding: 5px 10px
+		box-sizing: border-box
+		font-size: 13px
+		color: #333
+		margin: 0
+
+	.close
+		color: #999
+		font-size: 9px
+		margin-right: 7px
+		text-decoration: none
+		padding: 0
+		border: none
+		background: transparent
+		cursor: pointer
+	&:hover .close
+		color: #666
+	.toggle
+		float: right
+		display: block
+		text-align: center
+		line-height: 20px
+		color: #999
+		font-size: 15px
+		font-weight: 400
+		-webkit-transition: all 0.15s ease-out 0s
+		-moz-transition: all 0.15s ease-out 0s
+		transition: all 0.15s ease-out 0s
+		&:hover
+			cursor: pointer
+			border-color: #999
+		span:before
+			content: '+'
+	.toggle-switch
+		display: none
+		&:checked ~ .toggle
+			border-color: #999
+			-ms-transform: rotate(45deg)
+			-webkit-transform: rotate(45deg)
+			transform: rotate(45deg)
+			color: #333
+		&:checked ~ .options
+			display: block
+			max-height: 200px
+
+	.block--options
+		border-left: solid 2px #ccc
+		// padding: 0 10px
+		margin-top: 10px
+		float: left
+		+clearfix
+
+	.radio-list
+		li
+			+clearfix
+			+ li
+				margin-top: 10px
+
+			// input[type="radio"]
+			// 	display: none
+			// 	&:checked
+			// 		+ label
+			// 			color: $primaryColor
+			//
+			// 			&::before
+			// 				content: '•'
+			// 				margin-right: 10px
+			// label
+			// 	font-size: 13px
+			// 	line-height: 16px
+			// 	color: #999
+			// 	+transition()
+			// 	font-weight: 400
+			// 	&:hover
+			// 		color: #666
+			// 	&::before
+			// 		content: '•'
+			// 		margin-right: 6px
+			// 		+transition()
+			input[type="radio"]
+				display: none
+				&:checked
+					+ label
+						color: $primaryColor
+						&::before
+							width: 20px
+							// background: $primaryColor
+			label
+				font-size: 13px
+				line-height: 16px
+				color: #999
+				float: left
+				+transition()
+				font-weight: 400
+				+clearfix
+				&:hover
+					color: #666
+					cursor: pointer
+				&::before
+					content: ''
+					margin-right: 10px
+					height: 2px
+					width: 4px
+					margin-top: 7px
+					border-radius: 0 2px 2px 0
+					background: #ccc
+					display: block
+					float: left
+					+transition()
+
+
+	&--tools
+		float: right
+		li
+			display: inline-block
+			button
+				cursor: pointer
+				padding: 0
+				border: none
+				background: transparent
+				height: 22px
+				width: 22px
+
+			svg
+				fill: #999
+				height: 16px
+				width: auto
+	&:hover .block--tools li svg
+		fill: #666
+
+.node-name
+	background: transparent!important
+	display: inline!important
+	width: 220px!important
+	padding: 0!important
+	line-height: 22px!important
+	float: left
+	border: none!important
+	border-radius: 0
+	border-left: solid 0px transparent!important
+	-webkit-transition: all 0.15s ease-out 0s
+	-moz-transition: all 0.15s ease-out 0s
+	transition: all 0.15s ease-out 0s
+	&:focus
+		border-left: solid 10px $primaryColor!important
+		color: $primaryColor!important
+		padding-left: 10px!important
+		// font-size: 14px!important
+
+
+#newObject--presets
+	background: white
+	display: none
+	+clearfix
+	border-bottom: solid 1px #eee
+	#preset-toggle
+		display: none
+	label
+		color: $primaryColor
+		clear: both
+		width: 100%
+		// margin-left: 10px
+		padding: 12px
+		// line-height: 34px
+		display: block
+		font-size: 10px
+		text-transform: uppercase
+		line-height: 10px
+		box-sizing: border-box
+		float: left
+		&::after
+			content: ''
+			+size(10px)
+			text-align: center
+			display: block
+			float: right
+			line-height: 12px
+			border: solid 1px #ccc
+			color: #eee
+			border-radius: 50%
+			font-size: 14px
+			box-sizing: border-box
+	.presets--list
+		display: none

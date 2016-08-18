@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+$primaryColor:  #FF0078;
+$darkColor: #CC005C;
+$lightColor: #FF66AD;
+$lightWhite: #F2F2F2;
+
+// Tools
+@import 'tools/reset';
+@import 'tools/bourbon/bourbon';
+@import url(https://fonts.googleapis.com/css?family=Oleo+Script|Open+Sans:400,300,700);
+
+// Components
+@import 'components/frame';
+// @import 'components/buttons';
+@import 'components/header';
+@import 'components/sidebar';
+@import 'components/block';
+@import 'components/stage';
+@import 'components/help';
+
+
+// Global
+html, body, main, .frame, .stage{
+	height: 100%;
+}
+body{
+	font-family: 'Open Sans', sans-serif;
+	color: #333;
+	background: white;
+	// overflow-y: scroll;
+	font-size: 13px;
+}
+
+
+a{
+	color: $primaryColor;
+	text-decoration: none;
+	&:hover{
+		color: $darkColor
+	}
+}
+
+//  Mobile
+@import "components/mobile";

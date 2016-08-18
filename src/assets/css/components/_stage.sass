@@ -1,0 +1,126 @@
+main
+	width: calc(100% - 300px)
+	float: left
+
+	.stage
+		background: white
+		background: #333
+		white-space: normal
+		height: 100%
+		position: relative
+		display: flex
+		flex-direction: column
+
+		#codeField
+			color: white
+			font-family: courier
+			font-weight: 200
+			font-size: 13px
+			padding: 20px 20px 0
+			box-sizing: border-box
+			display: block
+			line-height: 20px
+			height: calc(100% - 105px)
+			overflow-y: scroll
+			&::-webkit-scrollbar
+				width: 0.5em
+				height: 0.5em
+				&-track
+					-webkit-box-shadow: none
+					background-color: #1A1A1A
+				&-thumb
+					background-color: #4D4D4D
+					outline: none
+
+			.pinkSpan
+				color: $lightColor
+			span
+				color: #999
+
+			b
+				font-size: 16px
+				color:  $lightColor
+		&--inputs
+			border-bottom: solid 1px #000
+			+clearfix
+			label
+				color: #999
+				display: block
+				font-size: 10px
+				text-transform: uppercase
+				margin-bottom: 5px
+				margin-left: 3px
+			input
+				&::-webkit-outer-spin-button, &::-webkit-inner-spin-button
+					-webkit-appearance: none
+					margin: 0
+				&[type="text"], &[type="number"]
+					width: 100%
+					background: #1d1d1d
+					color: white
+					border: none
+					padding: 6px 10px
+					box-sizing: border-box
+			.array-name, .num-objects
+				display: block
+				padding: 10px
+				border-right: solid 1px #000
+				float: left
+				box-sizing: border-box
+			.array-name
+				width: 300px
+			.num-objects
+				width: 150px
+		&--controls
+			background: black
+			width: 100%
+			padding: 0 20px
+			box-sizing: border-box
+
+			+clearfix
+			#btnReset, .download-options li a
+				padding: 0
+				font-size: 13px
+				background: none
+				color: white
+				border: none
+				line-height: 44px
+
+			#btnReset
+				text-transform: uppercase
+				float: left
+				&:hover
+					cursor: pointer
+			.download-options
+				float: right
+				+clearfix
+				li
+					float: right
+					margin-left: 15px
+					a
+						background:
+							image: url(/assets/img/icn_download.png)
+							repeat: no-repeat
+							position: left center
+						padding-left: 15px
+
+	.blurb
+		display: block
+		text-align: center
+		font-size: 11px
+		color: #666
+		font-weight: 500
+		margin-bottom: 20px
+
+		a
+			color:  $primaryColor
+			text-decoration: none
+			&:hover
+				color: $darkColor
+.note
+	border-top: solid 1px #eee
+	padding: 15px 20px
+	margin: 0
+	font-size: 10px
+	strong
+		font-weight: 600
