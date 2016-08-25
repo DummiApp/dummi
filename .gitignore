@@ -12,3 +12,4 @@ test/watch-*.txt
 gulp.1
 config.codekit
 .sass-cache
+assets/sourcemaps

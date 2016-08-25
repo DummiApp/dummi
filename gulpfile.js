@@ -2,7 +2,9 @@ var gulp = require('gulp');
 
 var browserSync = require('browser-sync').create();
 var plumber = require('gulp-plumber');
+var notify = require('gulp-notify');
 var rename = require('gulp-rename');
+var sourcemaps = require('gulp-sourcemaps');
 
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
@@ -17,8 +19,10 @@ var jade = require('gulp-jade');
 gulp.task('sass', function() {
   return gulp.src('src/assets/css/main.scss')
     .pipe(plumber({errorHandler: errorAlert}))
-    .pipe(sass())
-    .pipe(autoprefixer())
+    .pipe(sourcemaps.init())
+      .pipe(sass())
+      .pipe(autoprefixer())
+    .pipe(sourcemaps.write('../sourcemaps'))
     .pipe(gulp.dest('assets/css'))
     .pipe(browserSync.stream())
 
@@ -36,11 +40,12 @@ gulp.task('jade', function() {
 gulp.task('js', function() {
   return gulp.src(['src/assets/js/chance.min.js', 'src/assets/js/holder-ipsum.min.js', 'src/assets/js/dummi.js'])
     .pipe(plumber({errorHandler: errorAlert}))
-    .pipe(concat('main.js'))
-    .pipe(uglify())
-    .pipe(rename({suffix: '.min'}))
+    .pipe(sourcemaps.init())
+      .pipe(concat('main.js'))
+      .pipe(uglify())
+      .pipe(rename({suffix: '.min'}))
+    .pipe(sourcemaps.write('../sourcemaps'))
     .pipe(gulp.dest('assets/js'))
-    // .pipe(browserSync.reload())
 });
 
 
