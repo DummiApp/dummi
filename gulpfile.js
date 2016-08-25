@@ -1,74 +1,73 @@
-var gulp = require('gulp'),
-    plumber = require('gulp-plumber'),
-    rename = require('gulp-rename'),
-    autoprefixer = require('gulp-autoprefixer'),
-    concat = require('gulp-concat'),
-    uglify = require('gulp-uglify'),
-    imagemin = require('gulp-imagemin'),
-    cache = require('gulp-cache'),
-    minifycss = require('gulp-minify-css'),
-    sass = require('gulp-sass'),
-    browserSync = require('browser-sync'),
-    jade = require('gulp-jade');
+var gulp = require('gulp');
 
-gulp.task('browser-sync', function() {
-  browserSync({
-    server: {
-       baseDir: "./"
-    }
-  });
-});
+var browserSync = require('browser-sync').create();
+var plumber = require('gulp-plumber');
+var rename = require('gulp-rename');
 
-gulp.task('bs-reload', function () {
-  browserSync.reload();
-});
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
 
-gulp.task('images', function(){
-  gulp.src('src/assets/img/**/*')
-    .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
-    .pipe(gulp.dest('assets/img/'));
-});
+var sass = require('gulp-sass');
+var autoprefixer = require('gulp-autoprefixer');
+var cleanCSS = require('gulp-clean-css');
 
-gulp.task('styles', function(){
-  gulp.src(['src/assets/css/**/*.scss'])
-    .pipe(plumber({
-      errorHandler: function (error) {
-        console.log(error.message);
-        this.emit('end');
-    }}))
+var jade = require('gulp-jade');
+
+
+gulp.task('sass', function() {
+  return gulp.src('src/assets/css/main.scss')
+    .pipe(plumber({errorHandler: errorAlert}))
     .pipe(sass())
-    .pipe(autoprefixer('last 2 versions'))
-    .pipe(gulp.dest('assets/css/'))
+    .pipe(autoprefixer())
+    .pipe(gulp.dest('assets/css'))
+    .pipe(browserSync.stream())
+
+    .pipe(cleanCSS())
     .pipe(rename({suffix: '.min'}))
-    .pipe(minifycss())
-    .pipe(gulp.dest('assets/css/'))
-    .pipe(browserSync.reload({stream:true}))
+    .pipe(gulp.dest('assets/css'));
 });
 
 gulp.task('jade', function() {
-    return gulp.src('src/*.jade')
-        .pipe(jade())
-        .pipe(gulp.dest('/')); 
+  return gulp.src('src/*.jade')
+    .pipe(jade())
+    .pipe(gulp.dest('./'));
 });
 
-gulp.task('scripts', function(){
-  return gulp.src('src/assets/js/**/*.js')
-    .pipe(plumber({
-      errorHandler: function (error) {
-        console.log(error.message);
-        this.emit('end');
-    }}))
+gulp.task('js', function() {
+  return gulp.src(['src/assets/js/chance.min.js', 'src/assets/js/holder-ipsum.min.js', 'src/assets/js/dummi.js'])
+    .pipe(plumber({errorHandler: errorAlert}))
     .pipe(concat('main.js'))
-    .pipe(gulp.dest('assets/js/'))
-    .pipe(rename({suffix: '.min'}))
     .pipe(uglify())
-    .pipe(gulp.dest('assets/js/'))
-    .pipe(browserSync.reload({stream:true}))
+    .pipe(rename({suffix: '.min'}))
+    .pipe(gulp.dest('assets/js'))
+    // .pipe(browserSync.reload())
 });
 
-gulp.task('default', ['browser-sync'], function(){
-  gulp.watch("src/assets/css/**/*.scss", ['styles']);
-  gulp.watch("src/assets/js/**/*.js", ['scripts']);
-  gulp.watch("src/*.jade", ['jade']);
-  gulp.watch("*.html", ['bs-reload']);
+
+function reload() {
+  return browserSync.reload();
+}
+
+gulp.task('jade-reload', ['jade'], reload);
+gulp.task('js-reload', ['js'], reload);
+
+gulp.task('serve', ['sass', 'js', 'jade'], function() {
+  browserSync.init({
+    server: {
+       baseDir: './'
+    }
+  });
+
+  gulp.watch(['src/assets/css/**/*.scss', 'src/assets/css/**/*.sass', 'src/assets/css/main.scss'], ['sass']);
+  gulp.watch('src/assets/js/*.js', ['js-reload']);
+  gulp.watch(['src/*.jade', 'src/includes/*.jade'], ['jade-reload']);
 });
+
+gulp.task('default', ['serve']);
+
+
+function errorAlert(error) {
+  notify.onError({title: 'Gulp Error', message: 'Beep beep beep, stuffs going down. Check the console.', sound: true})(error);
+  console.log(error.toString());
+  this.emit('end');
+}

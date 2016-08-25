@@ -53,10 +53,10 @@ img, a {
 
 img {
   -webkit-user-select: none;
-  -khtml-user-select: none;
   -moz-user-select: none;
   -o-user-select: none;
-  user-select: none; }
+  -ms-user-select: none;
+      user-select: none; }
 
 #wrapper {
   height: 100%;
@@ -169,7 +169,7 @@ img {
       border-radius: 0;
       line-height: 40px;
       padding-left: 13px;
-      font-family: "Open Sans", arial, sans-serif;
+      font-family: 'Open Sans', arial, sans-serif;
       font-size: 13px;
       font-weight: 400;
       z-index: 2;
@@ -194,7 +194,6 @@ img {
     box-sizing: border-box;
     border-left: solid 1px #e5e5e5;
     -webkit-transition: 200ms;
-    -moz-transition: 200ms;
     transition: 200ms; }
     .side-bar #addValue:hover {
       cursor: pointer;
@@ -281,18 +280,16 @@ img {
     font-size: 15px;
     font-weight: 400;
     -webkit-transition: all 0.15s ease-out 0s;
-    -moz-transition: all 0.15s ease-out 0s;
     transition: all 0.15s ease-out 0s; }
     .block .toggle:hover {
       cursor: pointer;
       border-color: #999; }
     .block .toggle span:before {
-      content: "+"; }
+      content: '+'; }
   .block .toggle-switch {
     display: none; }
     .block .toggle-switch:checked ~ .toggle {
       border-color: #999;
-      -ms-transform: rotate(45deg);
       -webkit-transform: rotate(45deg);
       transform: rotate(45deg);
       color: #333; }
@@ -325,7 +322,6 @@ img {
     color: #999;
     float: left;
     -webkit-transition: all 0.15s ease-out 0s;
-    -moz-transition: all 0.15s ease-out 0s;
     transition: all 0.15s ease-out 0s;
     font-weight: 400; }
     .block .radio-list li label::after {
@@ -336,7 +332,7 @@ img {
       color: #666;
       cursor: pointer; }
     .block .radio-list li label::before {
-      content: "";
+      content: '';
       margin-right: 10px;
       height: 2px;
       width: 4px;
@@ -346,7 +342,6 @@ img {
       display: block;
       float: left;
       -webkit-transition: all 0.15s ease-out 0s;
-      -moz-transition: all 0.15s ease-out 0s;
       transition: all 0.15s ease-out 0s; }
   .block--tools {
     float: right; }
@@ -377,7 +372,6 @@ img {
   border-radius: 0;
   border-left: solid 0px transparent !important;
   -webkit-transition: all 0.15s ease-out 0s;
-  -moz-transition: all 0.15s ease-out 0s;
   transition: all 0.15s ease-out 0s; }
   .node-name:focus {
     border-left: solid 10px #FF0078 !important;
@@ -406,7 +400,7 @@ img {
     box-sizing: border-box;
     float: left; }
     #newObject--presets label::after {
-      content: "";
+      content: '';
       height: 10px;
       width: 10px;
       text-align: center;
@@ -430,8 +424,13 @@ main {
     white-space: normal;
     height: 100%;
     position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column; }
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column; }
     main .stage #codeField {
       color: white;
       font-family: courier;
@@ -560,7 +559,8 @@ main {
   overflow-y: scroll;
   opacity: 0;
   display: none;
-  transition: opacity 0.2s ease; }
+  -webkit-transition: opacity .2s ease;
+  transition: opacity .2s ease; }
   .help--box {
     margin: 0 auto;
     max-width: 600px;
@@ -740,7 +740,6 @@ a {
     padding-top: 110px;
     padding-bottom: 44px;
     height: auto; }
-
   .page-header {
     height: 110px;
     display: table-cell;
@@ -756,14 +755,12 @@ a {
     .page-header .header-nav {
       position: absolute;
       right: 20px; }
-
   .side-bar, main {
     float: none;
     width: 100%;
     height: auto; }
     .side-bar .object-container, main .object-container {
       overflow-y: auto; }
-
   .block--options {
     width: 100%;
     padding: 0 0 20px; }
@@ -771,7 +768,6 @@ a {
     margin-bottom: 20px; }
   .block .radio-list li + li {
     margin-top: 30px; }
-
   .stage {
     border-top: solid 10px black; }
     .stage #codeField {
