@@ -1,0 +1,24 @@
+html
+	head
+		meta(charset="UTF-8")
+		title Dummi - Data for stuff
+		link(rel="stylesheet", href="assets/css/main.css")
+		script(src="https://use.fontawesome.com/3e82c37e0d.js")
+	body
+		#wrapper
+			header#page-header
+				h1.logo Dummi
+				.project
+					h2.project--name(contenteditable="true", onclick="document.execCommand('selectAll',false,null)") Untitled
+						i.fa.fa-pencil
+					p.project--author by anonymous
+			main#stage
+				ul#items
+					li
+						input(type="radio", name="itemList", id="firstName" checked).item.text
+						label(for="firstName") firstName
+					li
+						input(type="radio", name="itemList", id="lastName").item.text
+						label(for="lastName") lastName
+				aside#properties
+				pre#output

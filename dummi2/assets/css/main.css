@@ -1,0 +1,145 @@
+@charset "UTF-8";
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+body {
+  background: #f4f4f4;
+  font-family: helvetica, arial, sans-serif;
+  padding: 20px; }
+
+#wrapper {
+  max-width: 1024px;
+  background: white;
+  margin: 30px auto;
+  border-radius: 5px;
+  overflow: hidden;
+  height: 600px;
+  box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.1); }
+
+#page-header {
+  display: flex;
+  padding: 15px;
+  align-items: center;
+  border-bottom: solid 1px #eee; }
+  #page-header .logo {
+    height: 60px;
+    width: 60px;
+    background: url("../img/dummi-logo.svg") center center no-repeat;
+    background-size: contain;
+    text-indent: 100%;
+    overflow: hidden;
+    word-wrap: none; }
+  #page-header .project {
+    margin-left: 15px;
+    font-weight: 200; }
+    #page-header .project--name {
+      font-size: 1rem; }
+      #page-header .project--name:hover {
+        color: #FF0070; }
+      #page-header .project--name:focus {
+        outline: none;
+        color: #FF0070; }
+      #page-header .project--name i {
+        margin-left: 5px;
+        font-size: 1rem;
+        color: #999; }
+    #page-header .project--author {
+      color: #999;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      margin-top: 5px; }
+
+#stage {
+  display: flex; }
+
+#items {
+  background: #fafafa;
+  border-right: solid 1px #eee;
+  height: 100%;
+  width: 250px;
+  padding: 5px;
+  overflow-y: scroll; }
+  #items .item {
+    display: none; }
+    #items .item + label {
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      display: block;
+      background-image: url("../img/icn_text.png");
+      background-repeat: no-repeat;
+      background-position: right top;
+      background-size: 26px;
+      background-color: white;
+      border-radius: 3px;
+      border: solid 1px #eee;
+      padding: 7px 10px;
+      margin: 5px; }
+      #items .item + label:before {
+        content: '●';
+        color: #eee;
+        margin-right: 5px; }
+      #items .item + label:hover:before {
+        color: #999; }
+    #items .item:checked + label {
+      background-position: right bottom;
+      background-color: #1998D4;
+      border-color: #1998D4;
+      color: white; }
+      #items .item:checked + label:before {
+        color: white; }
+
+#properties {
+  background: white;
+  border-right: solid 1px #eee;
+  height: 100%;
+  width: 250px; }
+
+#output {
+  background: #333;
+  height: 100%;
+  flex: 1; }
