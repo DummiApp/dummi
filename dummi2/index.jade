@@ -4,6 +4,7 @@ html
 		title Dummi - Data for stuff
 		link(rel="stylesheet", href="assets/css/main.css")
 		script(src="https://use.fontawesome.com/3e82c37e0d.js")
+		script(src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=sunburst")
 	body
 		#wrapper
 			header#page-header
@@ -20,5 +21,22 @@ html
 					li
 						input(type="radio", name="itemList", id="lastName").item.text
 						label(for="lastName") lastName
-				aside#properties
-				pre#output
+					li
+						input(type="radio", name="itemList", id="catPicture").item.img
+						label(for="catPicture") catPicture
+				ul#properties
+					li
+						label(for="name") Name
+						input(type="text", name="properties-catPicture", id="name", value="catPicture")
+					li.half
+						label(for="name") Width 
+						input(type="text", name="properties-catPicture", id="width", value="800")
+					li.half
+						label(for="name") Height 
+						input(type="text", name="properties-catPicture", id="height", value="600")
+					//- li
+					//- 	label(for="name") Name
+					//- 	input(type="text", name="properties-catPicture", id="name", value="catPicture")
+
+				ul#output
+					li: span { Untitled }

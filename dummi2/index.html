@@ -5,6 +5,7 @@
     <title>Dummi - Data for stuff</title>
     <link rel="stylesheet" href="assets/css/main.css"/>
     <script src="https://use.fontawesome.com/3e82c37e0d.js"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=sunburst"></script>
   </head>
   <body>
     <div id="wrapper">
@@ -25,9 +26,28 @@
             <input type="radio" name="itemList" id="lastName" class="item text"/>
             <label for="lastName">lastName</label>
           </li>
+          <li>
+            <input type="radio" name="itemList" id="catPicture" class="item img"/>
+            <label for="catPicture">catPicture</label>
+          </li>
         </ul>
-        <aside id="properties"></aside>
-        <pre id="output"></pre>
+        <ul id="properties">
+          <li>
+            <label for="name">Name</label>
+            <input type="text" name="properties-catPicture" id="name" value="catPicture"/>
+          </li>
+          <li class="half">
+            <label for="name">Width </label>
+            <input type="text" name="properties-catPicture" id="width" value="800"/>
+          </li>
+          <li class="half">
+            <label for="name">Height </label>
+            <input type="text" name="properties-catPicture" id="height" value="600"/>
+          </li>
+        </ul>
+        <ul id="output">
+          <li><span>{ Untitled }</span></li>
+        </ul>
       </main>
     </div>
   </body>
